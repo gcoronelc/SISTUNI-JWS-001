@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- ejm01.xml --> 
+<Catalogo> 
+  <Articulo> 
+    <Nombre>Monitor</Nombre> 
+    <Precio>120.00</Precio> 
+  </Articulo> 
+  <Articulo> 
+    <Nombre>Teclado</Nombre> 
+    <Precio>24.00</Precio> 
+  </Articulo> 
+  <Articulo> 
+    <Nombre>Mouse</Nombre> 
+    <Precio>18.00</Precio> 
+  </Articulo>
+  <Articulo> 
+    <Nombre>Televisión de 50"</Nombre>
+    <Precio>4500.00</Precio> 
+  </Articulo>
+</Catalogo> 
+

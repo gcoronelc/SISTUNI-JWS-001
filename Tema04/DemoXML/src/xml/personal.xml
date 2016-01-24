@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<!-- personal.xml --> 
+<!DOCTYPE lista_de_personas SYSTEM "personal.dtd"> 
+<lista_de_personas> 
+  <persona> 
+    <nombre>Gustavo Coronel</nombre> 
+    <sexo>Varón</sexo>
+    <numeroseguridadsocial>34768923</numeroseguridadsocial> 
+  </persona>
+  <persona> 
+    <nombre>Claudia Ramos</nombre> 
+    <sexo>Mujer</sexo> 
+  </persona>
+  <persona> 
+    <nombre>Julio Flores</nombre> 
+    <numeroseguridadsocial>67346578</numeroseguridadsocial> 
+  </persona>
+</lista_de_personas> 

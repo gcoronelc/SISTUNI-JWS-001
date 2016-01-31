@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<!-- venta.xml --> 
+<!DOCTYPE venta SYSTEM "venta.dtd"> 
+<venta> 
+  <cliente> 
+    <nombre>Gustavo Coronel</nombre> 
+    <direccion>Av. Arenales 2670</direccion> 
+  </cliente> 
+  <articulos> 
+    <articulo> 
+      <nombre>Laptop 3i</nombre> 
+      <precio>2890.00</precio> 
+      <cantidad>3</cantidad> 
+    </articulo> 
+    <articulo> 
+      <nombre>Impresora</nombre> 
+      <precio>578.00</precio> 
+      <cantidad>2</cantidad> 
+    </articulo> 
+  </articulos> 
+</venta> 

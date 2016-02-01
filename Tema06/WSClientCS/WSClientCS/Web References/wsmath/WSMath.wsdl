@@ -23,6 +23,12 @@
   <message name="restarResponse">
     <part name="parameters" element="tns:restarResponse" />
   </message>
+  <message name="getClientes">
+    <part name="parameters" element="tns:getClientes" />
+  </message>
+  <message name="getClientesResponse">
+    <part name="parameters" element="tns:getClientesResponse" />
+  </message>
   <portType name="WSMath">
     <operation name="sumar">
       <input wsam:Action="http://ws.egcc.pe/WSMath/sumarRequest" message="tns:sumar" />
@@ -35,6 +41,10 @@
     <operation name="restar">
       <input wsam:Action="http://ws.egcc.pe/WSMath/restarRequest" message="tns:restar" />
       <output wsam:Action="http://ws.egcc.pe/WSMath/restarResponse" message="tns:restarResponse" />
+    </operation>
+    <operation name="getClientes">
+      <input wsam:Action="http://ws.egcc.pe/WSMath/getClientesRequest" message="tns:getClientes" />
+      <output wsam:Action="http://ws.egcc.pe/WSMath/getClientesResponse" message="tns:getClientesResponse" />
     </operation>
   </portType>
   <binding name="WSMathPortBinding" type="tns:WSMath">
@@ -58,6 +68,15 @@
       </output>
     </operation>
     <operation name="restar">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="getClientes">
       <soap:operation soapAction="" />
       <input>
         <soap:body use="literal" />

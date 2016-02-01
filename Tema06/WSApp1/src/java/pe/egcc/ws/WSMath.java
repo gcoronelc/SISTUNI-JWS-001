@@ -1,9 +1,12 @@
 
 package pe.egcc.ws;
 
+import java.util.List;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
+import pe.egcc.model.ClienteModel;
+import pe.egcc.service.EurekaService;
 
 /**
  *
@@ -38,5 +41,16 @@ public class WSMath {
     int resta;
     resta = num1 - num2;
     return resta;
+  }
+
+  /**
+   * Web service operation
+   */
+  @WebMethod(operationName = "getClientes")
+  public List<ClienteModel> getClientes(@WebParam(name = "nombre") String nombre) {
+    EurekaService service = new EurekaService();
+    List<ClienteModel> lista;
+    lista = service.obtenerClientes(nombre);
+    return lista;
   }
 }

@@ -7,3 +7,4 @@ D:\EGCC\SISTUNI-JWS-ENE-16\Tema06\WSClientCS\WSClientCS\bin\Debug\WSClientCS.exe
 D:\EGCC\SISTUNI-JWS-ENE-16\Tema06\WSClientCS\WSClientCS\bin\Debug\WSClientCS.pdb
 D:\EGCC\SISTUNI-JWS-ENE-16\Tema06\WSClientCS\WSClientCS\obj\Debug\WSClientCS.exe
 D:\EGCC\SISTUNI-JWS-ENE-16\Tema06\WSClientCS\WSClientCS\obj\Debug\WSClientCS.pdb
+D:\EGCC\SISTUNI-JWS-ENE-16\Tema06\WSClientCS\WSClientCS\obj\Debug\WSClientCS.Form2.resources

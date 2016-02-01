@@ -35,7 +35,7 @@ and open the template in the editor.
     </form>
     
     <?php
-      if($suma){
+      if(isset($suma)){
         echo "<p>$num1 + $num2 = $suma</p>";
       }
     

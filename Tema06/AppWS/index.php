@@ -11,5 +11,6 @@ and open the template in the editor.
   </head>
   <body>
     <a href="suma.php">Sumar</a>
+    <a href="clientes.php">Clientes</a>
   </body>
 </html>

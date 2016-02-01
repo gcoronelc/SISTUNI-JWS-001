@@ -1,0 +1,9 @@
+D:\EGCC\SISTUNI-JWS-ENE-16\Tema06\WSClientCS\WSClientCS\bin\Debug\WSClientCS.exe.config
+D:\EGCC\SISTUNI-JWS-ENE-16\Tema06\WSClientCS\WSClientCS\obj\Debug\WSClientCS.csprojResolveAssemblyReference.cache
+D:\EGCC\SISTUNI-JWS-ENE-16\Tema06\WSClientCS\WSClientCS\obj\Debug\WSClientCS.Form1.resources
+D:\EGCC\SISTUNI-JWS-ENE-16\Tema06\WSClientCS\WSClientCS\obj\Debug\WSClientCS.Properties.Resources.resources
+D:\EGCC\SISTUNI-JWS-ENE-16\Tema06\WSClientCS\WSClientCS\obj\Debug\WSClientCS.csproj.GenerateResource.Cache
+D:\EGCC\SISTUNI-JWS-ENE-16\Tema06\WSClientCS\WSClientCS\bin\Debug\WSClientCS.exe
+D:\EGCC\SISTUNI-JWS-ENE-16\Tema06\WSClientCS\WSClientCS\bin\Debug\WSClientCS.pdb
+D:\EGCC\SISTUNI-JWS-ENE-16\Tema06\WSClientCS\WSClientCS\obj\Debug\WSClientCS.exe
+D:\EGCC\SISTUNI-JWS-ENE-16\Tema06\WSClientCS\WSClientCS\obj\Debug\WSClientCS.pdb

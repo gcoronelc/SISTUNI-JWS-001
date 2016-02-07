@@ -16,6 +16,10 @@
 - Blog: www.desarrollasoftware.com
 - Correo: gcoronelc@gmail.com
 
+# RECURSOS
+
+- https://www.youtube.com/watch?v=G8_VvBX6eQA
+- 
 
 # CLASE 01
 

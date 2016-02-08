@@ -1,0 +1,42 @@
+<html>
+<head>
+	<title>CLIENTE 1 CON JQUERY</title>
+	<script type="text/javascript" src="jquery.js" ></script>
+</head>
+<body>
+	<h1>CONSULTA DE CLIENTES</h1>
+	<form id="form1">
+	<table>
+		<tr>
+			<td>PATERNO</td>
+			<td>MATERNO</td>
+			<td>NOMBRE</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td><input type="text" name="paterno" /></td>
+			<td><input type="text" name="materno" /></td>
+			<td><input type="text" name="nombre" /></td>
+			<td><input type="button" id="btnConsultar" value="Consultar" /></td>
+		</tr>
+	</table>
+	</form>
+</body>
+<script type="text/javascript">
+	$("#btnConsultar").click(function(){
+		var datos = $("#form1").serialize();
+		var url = "http://localhost:8081/restcrud/rest/clientes/traer";
+		$.ajax({
+			type: "GET",
+			url: "http://localhost:8081/restcrud/rest/clientes/traer",
+			headers: {"Accept":"application/json","Access-Control-Allow-Origin":"http://localhost:8081"},
+			contentType: "application/json; charset=utf-8",
+			//data: "",
+			dataType: "json",
+			success: function(dataJson) {
+				alert(dataJson);
+			}			
+		});
+	});
+</script>
+</html>

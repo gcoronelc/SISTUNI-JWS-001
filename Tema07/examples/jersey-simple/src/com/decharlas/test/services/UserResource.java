@@ -22,44 +22,52 @@ import com.decharlas.test.model.User;
 
 @Path("users")
 public class UserResource {
-	private UserDAO userDAO;
 
-	public UserResource() {
-		this.userDAO = new UserDAO();
-	}
+  private UserDAO userDAO;
 
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	public List<User> getAll() {
-		return this.userDAO.getUsers();
-	}
+  public UserResource() {
+    this.userDAO = new UserDAO();
+  }
 
-	@DELETE
-	@Path("{id}")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response remove(@PathParam("id") String id) {
-		this.userDAO.removeUser(Integer.parseInt(id));
+  @GET
+  @Produces({ MediaType.APPLICATION_XML })
+  public List<User> getAll() {
+    return this.userDAO.getUsers();
+  }
 
-		return Response.noContent().build();
-	}
+  @GET
+  @Path("{id}")
+  @Produces({ MediaType.APPLICATION_JSON })
+  public User getUser(@PathParam("id") String id) {
+    return this.userDAO.getUser(Integer.parseInt(id));
+  }
 
-	@POST
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response add(User user, @Context UriInfo uriInfo) {
-		User newUser = this.userDAO.addUser(user);
+  @DELETE
+  @Path("{id}")
+  @Produces(MediaType.APPLICATION_JSON)
+  public Response remove(@PathParam("id") String id) {
+    this.userDAO.removeUser(Integer.parseInt(id));
+    return Response.noContent().build();
+  }
 
-		UriBuilder uriBuilder = uriInfo.getAbsolutePathBuilder();
-		URI newUri = uriBuilder.path(String.valueOf(newUser.getId())).build();
+  @POST
+  @Consumes(MediaType.APPLICATION_JSON)
+  @Produces(MediaType.APPLICATION_JSON)
+  public Response add(User user, @Context UriInfo uriInfo) {
+    User newUser = this.userDAO.addUser(user);
 
-		return Response.created(newUri).entity(newUser).build();
-	}
+    UriBuilder uriBuilder = uriInfo.getAbsolutePathBuilder();
+    URI newUri = uriBuilder.path(String.valueOf(newUser.getId())).build();
 
-	@PUT
-	@Path("{id}")
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
-	public User update(User user) {
-		return this.userDAO.updateUser(user);
-	}
+    return Response.created(newUri).entity(newUser).build();
+  }
+
+  @PUT
+  @Path("{id}")
+  @Consumes(MediaType.APPLICATION_JSON)
+  @Produces(MediaType.APPLICATION_JSON)
+  public User update(User user) {
+    return this.userDAO.updateUser(user);
+  }
+  
 }

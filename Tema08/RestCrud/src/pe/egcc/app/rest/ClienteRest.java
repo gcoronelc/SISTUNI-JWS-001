@@ -36,8 +36,10 @@ public class ClienteRest {
    @GET
    @Path("traer")
    @Produces({ MediaType.APPLICATION_JSON })
-   public List<ClienteModel> getClientes(@QueryParam("paterno") String paterno, @QueryParam("materno") String materno,
-         @QueryParam("nombre") String nombre) {
+   public List<ClienteModel> getClientes(
+       @QueryParam("paterno") String paterno, 
+       @QueryParam("materno") String materno,
+       @QueryParam("nombre") String nombre) {
 
       ClienteModel model = new ClienteModel();
       model.setPaterno(paterno);

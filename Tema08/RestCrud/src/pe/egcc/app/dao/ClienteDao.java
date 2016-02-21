@@ -200,7 +200,10 @@ public class ClienteDao {
          pstm.setString(7, model.getTelefono());
          pstm.setString(8, model.getEmail());
          pstm.setString(9, model.getCodigo());
-         pstm.executeUpdate();
+         int n = pstm.executeUpdate();
+         if(n == 0){
+           throw new SQLException("Código del cliente no existe.");
+         }
          cn.commit(); // Confirma Tx
       } catch (SQLException e) {
          try {
@@ -244,8 +247,11 @@ public class ClienteDao {
          sql = "delete from cliente where chr_cliecodigo = ?";
          pstm = cn.prepareStatement(sql);
          pstm.setString(1, codigo);
-         pstm.executeUpdate();
+         int n = pstm.executeUpdate();
          pstm.close();
+         if(n == 0){
+           throw new SQLException("Código del cliente no existe.");
+         }
          // Confirmar Tx
          cn.commit(); 
       } catch (SQLException e) {

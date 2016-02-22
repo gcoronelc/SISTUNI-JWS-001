@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="UsuarioServiceImplService" targetNamespace="service.ws.mcg.pe" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="service.ws.mcg.pe" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:types>
+    <xs:schema elementFormDefault="unqualified" targetNamespace="service.ws.mcg.pe" version="1.0" xmlns:tns="service.ws.mcg.pe" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="actualizarUsuario" type="tns:actualizarUsuario"/>
+
+  <xs:element name="actualizarUsuarioResponse" type="tns:actualizarUsuarioResponse"/>
+
+  <xs:element name="desactivarUsuario" type="tns:desactivarUsuario"/>
+
+  <xs:element name="desactivarUsuarioResponse" type="tns:desactivarUsuarioResponse"/>
+
+  <xs:element name="insertarUsuario" type="tns:insertarUsuario"/>
+
+  <xs:element name="insertarUsuarioResponse" type="tns:insertarUsuarioResponse"/>
+
+  <xs:element name="listarUsuarios" type="tns:listarUsuarios"/>
+
+  <xs:element name="listarUsuariosResponse" type="tns:listarUsuariosResponse"/>
+
+  <xs:element name="obtenerUsuario" type="tns:obtenerUsuario"/>
+
+  <xs:element name="obtenerUsuarioResponse" type="tns:obtenerUsuarioResponse"/>
+
+  <xs:complexType name="insertarUsuario">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="tns:usuarioEntity"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="usuarioEntity">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="clave" type="xs:string"/>
+      <xs:element minOccurs="0" name="correo" type="xs:string"/>
+      <xs:element minOccurs="0" name="id" type="xs:int"/>
+      <xs:element minOccurs="0" name="nombreCompleto" type="xs:string"/>
+      <xs:element minOccurs="0" name="usuario" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="insertarUsuarioResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="listarUsuarios">
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType name="listarUsuariosResponse">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:usuarioEntity"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="desactivarUsuario">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="tns:usuarioEntity"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="desactivarUsuarioResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="actualizarUsuario">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="tns:usuarioEntity"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="actualizarUsuarioResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="obtenerUsuario">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="obtenerUsuarioResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:usuarioEntity"/>
+    </xs:sequence>
+  </xs:complexType>
+
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="insertarUsuario">
+    <wsdl:part name="parameters" element="tns:insertarUsuario">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="desactivarUsuario">
+    <wsdl:part name="parameters" element="tns:desactivarUsuario">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="actualizarUsuarioResponse">
+    <wsdl:part name="parameters" element="tns:actualizarUsuarioResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="obtenerUsuario">
+    <wsdl:part name="parameters" element="tns:obtenerUsuario">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="listarUsuariosResponse">
+    <wsdl:part name="parameters" element="tns:listarUsuariosResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="insertarUsuarioResponse">
+    <wsdl:part name="parameters" element="tns:insertarUsuarioResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="desactivarUsuarioResponse">
+    <wsdl:part name="parameters" element="tns:desactivarUsuarioResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="listarUsuarios">
+    <wsdl:part name="parameters" element="tns:listarUsuarios">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="obtenerUsuarioResponse">
+    <wsdl:part name="parameters" element="tns:obtenerUsuarioResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="actualizarUsuario">
+    <wsdl:part name="parameters" element="tns:actualizarUsuario">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="UsuarioService">
+    <wsdl:operation name="insertarUsuario">
+      <wsdl:input name="insertarUsuario" message="tns:insertarUsuario">
+    </wsdl:input>
+      <wsdl:output name="insertarUsuarioResponse" message="tns:insertarUsuarioResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="listarUsuarios">
+      <wsdl:input name="listarUsuarios" message="tns:listarUsuarios">
+    </wsdl:input>
+      <wsdl:output name="listarUsuariosResponse" message="tns:listarUsuariosResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="desactivarUsuario">
+      <wsdl:input name="desactivarUsuario" message="tns:desactivarUsuario">
+    </wsdl:input>
+      <wsdl:output name="desactivarUsuarioResponse" message="tns:desactivarUsuarioResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="actualizarUsuario">
+      <wsdl:input name="actualizarUsuario" message="tns:actualizarUsuario">
+    </wsdl:input>
+      <wsdl:output name="actualizarUsuarioResponse" message="tns:actualizarUsuarioResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="obtenerUsuario">
+      <wsdl:input name="obtenerUsuario" message="tns:obtenerUsuario">
+    </wsdl:input>
+      <wsdl:output name="obtenerUsuarioResponse" message="tns:obtenerUsuarioResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="UsuarioServiceImplServiceSoapBinding" type="tns:UsuarioService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="insertarUsuario">
+      <soap:operation soapAction="urn:InsertarUsuario" style="document"/>
+      <wsdl:input name="insertarUsuario">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="insertarUsuarioResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="listarUsuarios">
+      <soap:operation soapAction="urn:ListarUsuarios" style="document"/>
+      <wsdl:input name="listarUsuarios">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="listarUsuariosResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="actualizarUsuario">
+      <soap:operation soapAction="urn:ActualizarUsuario" style="document"/>
+      <wsdl:input name="actualizarUsuario">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="actualizarUsuarioResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="desactivarUsuario">
+      <soap:operation soapAction="urn:DesactivarUsuario" style="document"/>
+      <wsdl:input name="desactivarUsuario">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="desactivarUsuarioResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="obtenerUsuario">
+      <soap:operation soapAction="urn:ObtenerUsuario" style="document"/>
+      <wsdl:input name="obtenerUsuario">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="obtenerUsuarioResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="UsuarioServiceImplService">
+    <wsdl:port name="UsuarioServiceImplPort" binding="tns:UsuarioServiceImplServiceSoapBinding">
+      <soap:address location="http://localhost:8080/WSProject/services/UsuarioServiceImplPort"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:#index.jsp" PATH="/index.jsp"
+  SHAPE="440,232,50,73" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#index.jsp:0" NAME="item" PATH="/index.jsp" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="index-usuarioIns::#usuarioIns.jsp"
+    NAME="output" PATH="/usuarioIns.jsp" TARGET="rules:#usuarioIns.jsp"
+    TITLE="index-usuarioIns" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="index-mensaje::#mensaje.jsp" NAME="output1"
+    PATH="/mensaje.jsp" TARGET="rules:#mensaje.jsp"
+    TITLE="index-mensaje" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="index-usuarioUpd::#usuarioUpd.jsp"
+    NAME="output2" PATH="/usuarioUpd.jsp" TARGET="rules:#usuarioUpd.jsp"
+    TITLE="index-usuarioUpd" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#mensaje.jsp" PATH="/mensaje.jsp"
+  SHAPE="328,48,50,41" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#mensaje.jsp:0" NAME="item"
+   PATH="/mensaje.jsp" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="mensaje-index::#index.jsp" NAME="output"
+    PATH="/index.jsp" TARGET="rules:#index.jsp" TITLE="mensaje-index" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#usuarioIns.jsp" PATH="/usuarioIns.jsp"
+  SHAPE="32,17,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#usuarioIns.jsp:0" NAME="item"
+   PATH="/usuarioIns.jsp" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="usuarioIns-index::#index.jsp" NAME="output"
+    PATH="/index.jsp" TARGET="rules:#index.jsp" TITLE="usuarioIns-index" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="usuarioIns-mensaje::#mensaje.jsp"
+    NAME="output1" PATH="/mensaje.jsp" TARGET="rules:#mensaje.jsp"
+    TITLE="usuarioIns-mensaje" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#usuarioUpd.jsp" PATH="/usuarioUpd.jsp"
+  SHAPE="32,161,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#usuarioUpd.jsp:0" NAME="item"
+   PATH="/usuarioUpd.jsp" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="usuarioUpd-index::#index.jsp" NAME="output"
+    PATH="/index.jsp" TARGET="rules:#index.jsp" TITLE="usuarioUpd-index" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="usuarioUpd-mensaje::#mensaje.jsp"
+    NAME="output1" PATH="/mensaje.jsp" TARGET="rules:#mensaje.jsp"
+    TITLE="usuarioUpd-mensaje" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+</PROCESS>

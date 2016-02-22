@@ -1,0 +1,434 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gestorvisitas.criteria.ClienteMapper" >
+  <resultMap id="BaseResultMap" type="com.gestorvisitas.model.Cliente" >
+    <id column="cli_ruc" property="cliRuc" jdbcType="VARCHAR" />
+    <result column="cli_estado" property="cliEstado" jdbcType="INTEGER" />
+    <result column="cli_razon_social" property="cliRazonSocial" jdbcType="VARCHAR" />
+    <result column="cli_gerente_general" property="cliGerenteGeneral" jdbcType="VARCHAR" />
+    <result column="cli_gerente_cuenta" property="cliGerenteCuenta" jdbcType="VARCHAR" />
+    <result column="cli_sector_comercial" property="cliSectorComercial" jdbcType="VARCHAR" />
+    <result column="cli_lider_venta" property="cliLiderVenta" jdbcType="VARCHAR" />
+    <result column="cli_direccion" property="cliDireccion" jdbcType="VARCHAR" />
+    <result column="cli_telefono" property="cliTelefono" jdbcType="VARCHAR" />
+    <result column="cli_correo" property="cliCorreo" jdbcType="VARCHAR" />
+    <result column="cli_fec_alta" property="cliFecAlta" jdbcType="DATE" />
+    <result column="cli_fec_baja" property="cliFecBaja" jdbcType="DATE" />
+    <result column="cli_fec_modificacion" property="cliFecModificacion" jdbcType="DATE" />
+    <result column="cli_usu_alta" property="cliUsuAlta" jdbcType="INTEGER" />
+    <result column="cli_usu_baja" property="cliUsuBaja" jdbcType="INTEGER" />
+    <result column="cli_usu_modificacion" property="cliUsuModificacion" jdbcType="INTEGER" />
+    <result column="cli_nombre_comercial" property="cliNombreComercial" jdbcType="VARCHAR" />
+    <result column="cli_grupo" property="cliGrupo" jdbcType="VARCHAR" />
+    <result column="cli_direccion_comercial" property="cliDireccionComercial" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    cli_ruc, cli_estado, cli_razon_social, cli_gerente_general, cli_gerente_cuenta, cli_sector_comercial, 
+    cli_lider_venta, cli_direccion, cli_telefono, cli_correo, cli_fec_alta, cli_fec_baja, 
+    cli_fec_modificacion, cli_usu_alta, cli_usu_baja, cli_usu_modificacion, cli_nombre_comercial, 
+    cli_grupo, cli_direccion_comercial
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gestorvisitas.model.ClienteExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_tr_cliente
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_tr_cliente
+    where cli_ruc = #{cliRuc,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tb_tr_cliente
+    where cli_ruc = #{cliRuc,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.gestorvisitas.model.ClienteExample" >
+    delete from tb_tr_cliente
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.gestorvisitas.model.Cliente" >
+    insert into tb_tr_cliente (cli_ruc, cli_estado, cli_razon_social, 
+      cli_gerente_general, cli_gerente_cuenta, cli_sector_comercial, 
+      cli_lider_venta, cli_direccion, cli_telefono, 
+      cli_correo, cli_fec_alta, cli_fec_baja, 
+      cli_fec_modificacion, cli_usu_alta, cli_usu_baja, 
+      cli_usu_modificacion, cli_nombre_comercial, 
+      cli_grupo, cli_direccion_comercial)
+    values (#{cliRuc,jdbcType=VARCHAR}, #{cliEstado,jdbcType=INTEGER}, #{cliRazonSocial,jdbcType=VARCHAR}, 
+      #{cliGerenteGeneral,jdbcType=VARCHAR}, #{cliGerenteCuenta,jdbcType=VARCHAR}, #{cliSectorComercial,jdbcType=VARCHAR}, 
+      #{cliLiderVenta,jdbcType=VARCHAR}, #{cliDireccion,jdbcType=VARCHAR}, #{cliTelefono,jdbcType=VARCHAR}, 
+      #{cliCorreo,jdbcType=VARCHAR}, #{cliFecAlta,jdbcType=DATE}, #{cliFecBaja,jdbcType=DATE}, 
+      #{cliFecModificacion,jdbcType=DATE}, #{cliUsuAlta,jdbcType=INTEGER}, #{cliUsuBaja,jdbcType=INTEGER}, 
+      #{cliUsuModificacion,jdbcType=INTEGER}, #{cliNombreComercial,jdbcType=VARCHAR}, 
+      #{cliGrupo,jdbcType=VARCHAR}, #{cliDireccionComercial,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gestorvisitas.model.Cliente" >
+    insert into tb_tr_cliente
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cliRuc != null" >
+        cli_ruc,
+      </if>
+      <if test="cliEstado != null" >
+        cli_estado,
+      </if>
+      <if test="cliRazonSocial != null" >
+        cli_razon_social,
+      </if>
+      <if test="cliGerenteGeneral != null" >
+        cli_gerente_general,
+      </if>
+      <if test="cliGerenteCuenta != null" >
+        cli_gerente_cuenta,
+      </if>
+      <if test="cliSectorComercial != null" >
+        cli_sector_comercial,
+      </if>
+      <if test="cliLiderVenta != null" >
+        cli_lider_venta,
+      </if>
+      <if test="cliDireccion != null" >
+        cli_direccion,
+      </if>
+      <if test="cliTelefono != null" >
+        cli_telefono,
+      </if>
+      <if test="cliCorreo != null" >
+        cli_correo,
+      </if>
+      <if test="cliFecAlta != null" >
+        cli_fec_alta,
+      </if>
+      <if test="cliFecBaja != null" >
+        cli_fec_baja,
+      </if>
+      <if test="cliFecModificacion != null" >
+        cli_fec_modificacion,
+      </if>
+      <if test="cliUsuAlta != null" >
+        cli_usu_alta,
+      </if>
+      <if test="cliUsuBaja != null" >
+        cli_usu_baja,
+      </if>
+      <if test="cliUsuModificacion != null" >
+        cli_usu_modificacion,
+      </if>
+      <if test="cliNombreComercial != null" >
+        cli_nombre_comercial,
+      </if>
+      <if test="cliGrupo != null" >
+        cli_grupo,
+      </if>
+      <if test="cliDireccionComercial != null" >
+        cli_direccion_comercial,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cliRuc != null" >
+        #{cliRuc,jdbcType=VARCHAR},
+      </if>
+      <if test="cliEstado != null" >
+        #{cliEstado,jdbcType=INTEGER},
+      </if>
+      <if test="cliRazonSocial != null" >
+        #{cliRazonSocial,jdbcType=VARCHAR},
+      </if>
+      <if test="cliGerenteGeneral != null" >
+        #{cliGerenteGeneral,jdbcType=VARCHAR},
+      </if>
+      <if test="cliGerenteCuenta != null" >
+        #{cliGerenteCuenta,jdbcType=VARCHAR},
+      </if>
+      <if test="cliSectorComercial != null" >
+        #{cliSectorComercial,jdbcType=VARCHAR},
+      </if>
+      <if test="cliLiderVenta != null" >
+        #{cliLiderVenta,jdbcType=VARCHAR},
+      </if>
+      <if test="cliDireccion != null" >
+        #{cliDireccion,jdbcType=VARCHAR},
+      </if>
+      <if test="cliTelefono != null" >
+        #{cliTelefono,jdbcType=VARCHAR},
+      </if>
+      <if test="cliCorreo != null" >
+        #{cliCorreo,jdbcType=VARCHAR},
+      </if>
+      <if test="cliFecAlta != null" >
+        #{cliFecAlta,jdbcType=DATE},
+      </if>
+      <if test="cliFecBaja != null" >
+        #{cliFecBaja,jdbcType=DATE},
+      </if>
+      <if test="cliFecModificacion != null" >
+        #{cliFecModificacion,jdbcType=DATE},
+      </if>
+      <if test="cliUsuAlta != null" >
+        #{cliUsuAlta,jdbcType=INTEGER},
+      </if>
+      <if test="cliUsuBaja != null" >
+        #{cliUsuBaja,jdbcType=INTEGER},
+      </if>
+      <if test="cliUsuModificacion != null" >
+        #{cliUsuModificacion,jdbcType=INTEGER},
+      </if>
+      <if test="cliNombreComercial != null" >
+        #{cliNombreComercial,jdbcType=VARCHAR},
+      </if>
+      <if test="cliGrupo != null" >
+        #{cliGrupo,jdbcType=VARCHAR},
+      </if>
+      <if test="cliDireccionComercial != null" >
+        #{cliDireccionComercial,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.gestorvisitas.model.ClienteExample" resultType="java.lang.Integer" >
+    select count(*) from tb_tr_cliente
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_tr_cliente
+    <set >
+      <if test="record.cliRuc != null" >
+        cli_ruc = #{record.cliRuc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cliEstado != null" >
+        cli_estado = #{record.cliEstado,jdbcType=INTEGER},
+      </if>
+      <if test="record.cliRazonSocial != null" >
+        cli_razon_social = #{record.cliRazonSocial,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cliGerenteGeneral != null" >
+        cli_gerente_general = #{record.cliGerenteGeneral,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cliGerenteCuenta != null" >
+        cli_gerente_cuenta = #{record.cliGerenteCuenta,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cliSectorComercial != null" >
+        cli_sector_comercial = #{record.cliSectorComercial,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cliLiderVenta != null" >
+        cli_lider_venta = #{record.cliLiderVenta,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cliDireccion != null" >
+        cli_direccion = #{record.cliDireccion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cliTelefono != null" >
+        cli_telefono = #{record.cliTelefono,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cliCorreo != null" >
+        cli_correo = #{record.cliCorreo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cliFecAlta != null" >
+        cli_fec_alta = #{record.cliFecAlta,jdbcType=DATE},
+      </if>
+      <if test="record.cliFecBaja != null" >
+        cli_fec_baja = #{record.cliFecBaja,jdbcType=DATE},
+      </if>
+      <if test="record.cliFecModificacion != null" >
+        cli_fec_modificacion = #{record.cliFecModificacion,jdbcType=DATE},
+      </if>
+      <if test="record.cliUsuAlta != null" >
+        cli_usu_alta = #{record.cliUsuAlta,jdbcType=INTEGER},
+      </if>
+      <if test="record.cliUsuBaja != null" >
+        cli_usu_baja = #{record.cliUsuBaja,jdbcType=INTEGER},
+      </if>
+      <if test="record.cliUsuModificacion != null" >
+        cli_usu_modificacion = #{record.cliUsuModificacion,jdbcType=INTEGER},
+      </if>
+      <if test="record.cliNombreComercial != null" >
+        cli_nombre_comercial = #{record.cliNombreComercial,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cliGrupo != null" >
+        cli_grupo = #{record.cliGrupo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cliDireccionComercial != null" >
+        cli_direccion_comercial = #{record.cliDireccionComercial,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_tr_cliente
+    set cli_ruc = #{record.cliRuc,jdbcType=VARCHAR},
+      cli_estado = #{record.cliEstado,jdbcType=INTEGER},
+      cli_razon_social = #{record.cliRazonSocial,jdbcType=VARCHAR},
+      cli_gerente_general = #{record.cliGerenteGeneral,jdbcType=VARCHAR},
+      cli_gerente_cuenta = #{record.cliGerenteCuenta,jdbcType=VARCHAR},
+      cli_sector_comercial = #{record.cliSectorComercial,jdbcType=VARCHAR},
+      cli_lider_venta = #{record.cliLiderVenta,jdbcType=VARCHAR},
+      cli_direccion = #{record.cliDireccion,jdbcType=VARCHAR},
+      cli_telefono = #{record.cliTelefono,jdbcType=VARCHAR},
+      cli_correo = #{record.cliCorreo,jdbcType=VARCHAR},
+      cli_fec_alta = #{record.cliFecAlta,jdbcType=DATE},
+      cli_fec_baja = #{record.cliFecBaja,jdbcType=DATE},
+      cli_fec_modificacion = #{record.cliFecModificacion,jdbcType=DATE},
+      cli_usu_alta = #{record.cliUsuAlta,jdbcType=INTEGER},
+      cli_usu_baja = #{record.cliUsuBaja,jdbcType=INTEGER},
+      cli_usu_modificacion = #{record.cliUsuModificacion,jdbcType=INTEGER},
+      cli_nombre_comercial = #{record.cliNombreComercial,jdbcType=VARCHAR},
+      cli_grupo = #{record.cliGrupo,jdbcType=VARCHAR},
+      cli_direccion_comercial = #{record.cliDireccionComercial,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gestorvisitas.model.Cliente" >
+    update tb_tr_cliente
+    <set >
+      <if test="cliEstado != null" >
+        cli_estado = #{cliEstado,jdbcType=INTEGER},
+      </if>
+      <if test="cliRazonSocial != null" >
+        cli_razon_social = #{cliRazonSocial,jdbcType=VARCHAR},
+      </if>
+      <if test="cliGerenteGeneral != null" >
+        cli_gerente_general = #{cliGerenteGeneral,jdbcType=VARCHAR},
+      </if>
+      <if test="cliGerenteCuenta != null" >
+        cli_gerente_cuenta = #{cliGerenteCuenta,jdbcType=VARCHAR},
+      </if>
+      <if test="cliSectorComercial != null" >
+        cli_sector_comercial = #{cliSectorComercial,jdbcType=VARCHAR},
+      </if>
+      <if test="cliLiderVenta != null" >
+        cli_lider_venta = #{cliLiderVenta,jdbcType=VARCHAR},
+      </if>
+      <if test="cliDireccion != null" >
+        cli_direccion = #{cliDireccion,jdbcType=VARCHAR},
+      </if>
+      <if test="cliTelefono != null" >
+        cli_telefono = #{cliTelefono,jdbcType=VARCHAR},
+      </if>
+      <if test="cliCorreo != null" >
+        cli_correo = #{cliCorreo,jdbcType=VARCHAR},
+      </if>
+      <if test="cliFecAlta != null" >
+        cli_fec_alta = #{cliFecAlta,jdbcType=DATE},
+      </if>
+      <if test="cliFecBaja != null" >
+        cli_fec_baja = #{cliFecBaja,jdbcType=DATE},
+      </if>
+      <if test="cliFecModificacion != null" >
+        cli_fec_modificacion = #{cliFecModificacion,jdbcType=DATE},
+      </if>
+      <if test="cliUsuAlta != null" >
+        cli_usu_alta = #{cliUsuAlta,jdbcType=INTEGER},
+      </if>
+      <if test="cliUsuBaja != null" >
+        cli_usu_baja = #{cliUsuBaja,jdbcType=INTEGER},
+      </if>
+      <if test="cliUsuModificacion != null" >
+        cli_usu_modificacion = #{cliUsuModificacion,jdbcType=INTEGER},
+      </if>
+      <if test="cliNombreComercial != null" >
+        cli_nombre_comercial = #{cliNombreComercial,jdbcType=VARCHAR},
+      </if>
+      <if test="cliGrupo != null" >
+        cli_grupo = #{cliGrupo,jdbcType=VARCHAR},
+      </if>
+      <if test="cliDireccionComercial != null" >
+        cli_direccion_comercial = #{cliDireccionComercial,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where cli_ruc = #{cliRuc,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gestorvisitas.model.Cliente" >
+    update tb_tr_cliente
+    set cli_estado = #{cliEstado,jdbcType=INTEGER},
+      cli_razon_social = #{cliRazonSocial,jdbcType=VARCHAR},
+      cli_gerente_general = #{cliGerenteGeneral,jdbcType=VARCHAR},
+      cli_gerente_cuenta = #{cliGerenteCuenta,jdbcType=VARCHAR},
+      cli_sector_comercial = #{cliSectorComercial,jdbcType=VARCHAR},
+      cli_lider_venta = #{cliLiderVenta,jdbcType=VARCHAR},
+      cli_direccion = #{cliDireccion,jdbcType=VARCHAR},
+      cli_telefono = #{cliTelefono,jdbcType=VARCHAR},
+      cli_correo = #{cliCorreo,jdbcType=VARCHAR},
+      cli_fec_alta = #{cliFecAlta,jdbcType=DATE},
+      cli_fec_baja = #{cliFecBaja,jdbcType=DATE},
+      cli_fec_modificacion = #{cliFecModificacion,jdbcType=DATE},
+      cli_usu_alta = #{cliUsuAlta,jdbcType=INTEGER},
+      cli_usu_baja = #{cliUsuBaja,jdbcType=INTEGER},
+      cli_usu_modificacion = #{cliUsuModificacion,jdbcType=INTEGER},
+      cli_nombre_comercial = #{cliNombreComercial,jdbcType=VARCHAR},
+      cli_grupo = #{cliGrupo,jdbcType=VARCHAR},
+      cli_direccion_comercial = #{cliDireccionComercial,jdbcType=VARCHAR}
+    where cli_ruc = #{cliRuc,jdbcType=VARCHAR}
+  </update>
+</mapper>

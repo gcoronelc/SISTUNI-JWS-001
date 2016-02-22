@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gestorvisitas.criteria.MtipoMapper" >
+  <resultMap id="BaseResultMap" type="com.gestorvisitas.model.Mtipo" >
+    <id column="mti_codigo" property="mtiCodigo" jdbcType="INTEGER" />
+    <result column="mti_estado" property="mtiEstado" jdbcType="INTEGER" />
+    <result column="mti_nombre" property="mtiNombre" jdbcType="VARCHAR" />
+    <result column="mti_descripcion" property="mtiDescripcion" jdbcType="VARCHAR" />
+    <result column="mti_fec_alta" property="mtiFecAlta" jdbcType="DATE" />
+    <result column="mti_fec_baja" property="mtiFecBaja" jdbcType="DATE" />
+    <result column="mti_fec_modificacion" property="mtiFecModificacion" jdbcType="DATE" />
+    <result column="mti_usu_alta" property="mtiUsuAlta" jdbcType="INTEGER" />
+    <result column="mti_usu_baja" property="mtiUsuBaja" jdbcType="INTEGER" />
+    <result column="mti_usu_modificacion" property="mtiUsuModificacion" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    mti_codigo, mti_estado, mti_nombre, mti_descripcion, mti_fec_alta, mti_fec_baja, 
+    mti_fec_modificacion, mti_usu_alta, mti_usu_baja, mti_usu_modificacion
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gestorvisitas.model.MtipoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_ma_mtipo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_ma_mtipo
+    where mti_codigo = #{mtiCodigo,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_ma_mtipo
+    where mti_codigo = #{mtiCodigo,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.gestorvisitas.model.MtipoExample" >
+    delete from tb_ma_mtipo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.gestorvisitas.model.Mtipo" >
+    insert into tb_ma_mtipo (mti_codigo, mti_estado, mti_nombre, 
+      mti_descripcion, mti_fec_alta, mti_fec_baja, 
+      mti_fec_modificacion, mti_usu_alta, mti_usu_baja, 
+      mti_usu_modificacion)
+    values (#{mtiCodigo,jdbcType=INTEGER}, #{mtiEstado,jdbcType=INTEGER}, #{mtiNombre,jdbcType=VARCHAR}, 
+      #{mtiDescripcion,jdbcType=VARCHAR}, #{mtiFecAlta,jdbcType=DATE}, #{mtiFecBaja,jdbcType=DATE}, 
+      #{mtiFecModificacion,jdbcType=DATE}, #{mtiUsuAlta,jdbcType=INTEGER}, #{mtiUsuBaja,jdbcType=INTEGER}, 
+      #{mtiUsuModificacion,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gestorvisitas.model.Mtipo" >
+    insert into tb_ma_mtipo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="mtiCodigo != null" >
+        mti_codigo,
+      </if>
+      <if test="mtiEstado != null" >
+        mti_estado,
+      </if>
+      <if test="mtiNombre != null" >
+        mti_nombre,
+      </if>
+      <if test="mtiDescripcion != null" >
+        mti_descripcion,
+      </if>
+      <if test="mtiFecAlta != null" >
+        mti_fec_alta,
+      </if>
+      <if test="mtiFecBaja != null" >
+        mti_fec_baja,
+      </if>
+      <if test="mtiFecModificacion != null" >
+        mti_fec_modificacion,
+      </if>
+      <if test="mtiUsuAlta != null" >
+        mti_usu_alta,
+      </if>
+      <if test="mtiUsuBaja != null" >
+        mti_usu_baja,
+      </if>
+      <if test="mtiUsuModificacion != null" >
+        mti_usu_modificacion,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="mtiCodigo != null" >
+        #{mtiCodigo,jdbcType=INTEGER},
+      </if>
+      <if test="mtiEstado != null" >
+        #{mtiEstado,jdbcType=INTEGER},
+      </if>
+      <if test="mtiNombre != null" >
+        #{mtiNombre,jdbcType=VARCHAR},
+      </if>
+      <if test="mtiDescripcion != null" >
+        #{mtiDescripcion,jdbcType=VARCHAR},
+      </if>
+      <if test="mtiFecAlta != null" >
+        #{mtiFecAlta,jdbcType=DATE},
+      </if>
+      <if test="mtiFecBaja != null" >
+        #{mtiFecBaja,jdbcType=DATE},
+      </if>
+      <if test="mtiFecModificacion != null" >
+        #{mtiFecModificacion,jdbcType=DATE},
+      </if>
+      <if test="mtiUsuAlta != null" >
+        #{mtiUsuAlta,jdbcType=INTEGER},
+      </if>
+      <if test="mtiUsuBaja != null" >
+        #{mtiUsuBaja,jdbcType=INTEGER},
+      </if>
+      <if test="mtiUsuModificacion != null" >
+        #{mtiUsuModificacion,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.gestorvisitas.model.MtipoExample" resultType="java.lang.Integer" >
+    select count(*) from tb_ma_mtipo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_ma_mtipo
+    <set >
+      <if test="record.mtiCodigo != null" >
+        mti_codigo = #{record.mtiCodigo,jdbcType=INTEGER},
+      </if>
+      <if test="record.mtiEstado != null" >
+        mti_estado = #{record.mtiEstado,jdbcType=INTEGER},
+      </if>
+      <if test="record.mtiNombre != null" >
+        mti_nombre = #{record.mtiNombre,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mtiDescripcion != null" >
+        mti_descripcion = #{record.mtiDescripcion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mtiFecAlta != null" >
+        mti_fec_alta = #{record.mtiFecAlta,jdbcType=DATE},
+      </if>
+      <if test="record.mtiFecBaja != null" >
+        mti_fec_baja = #{record.mtiFecBaja,jdbcType=DATE},
+      </if>
+      <if test="record.mtiFecModificacion != null" >
+        mti_fec_modificacion = #{record.mtiFecModificacion,jdbcType=DATE},
+      </if>
+      <if test="record.mtiUsuAlta != null" >
+        mti_usu_alta = #{record.mtiUsuAlta,jdbcType=INTEGER},
+      </if>
+      <if test="record.mtiUsuBaja != null" >
+        mti_usu_baja = #{record.mtiUsuBaja,jdbcType=INTEGER},
+      </if>
+      <if test="record.mtiUsuModificacion != null" >
+        mti_usu_modificacion = #{record.mtiUsuModificacion,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_ma_mtipo
+    set mti_codigo = #{record.mtiCodigo,jdbcType=INTEGER},
+      mti_estado = #{record.mtiEstado,jdbcType=INTEGER},
+      mti_nombre = #{record.mtiNombre,jdbcType=VARCHAR},
+      mti_descripcion = #{record.mtiDescripcion,jdbcType=VARCHAR},
+      mti_fec_alta = #{record.mtiFecAlta,jdbcType=DATE},
+      mti_fec_baja = #{record.mtiFecBaja,jdbcType=DATE},
+      mti_fec_modificacion = #{record.mtiFecModificacion,jdbcType=DATE},
+      mti_usu_alta = #{record.mtiUsuAlta,jdbcType=INTEGER},
+      mti_usu_baja = #{record.mtiUsuBaja,jdbcType=INTEGER},
+      mti_usu_modificacion = #{record.mtiUsuModificacion,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gestorvisitas.model.Mtipo" >
+    update tb_ma_mtipo
+    <set >
+      <if test="mtiEstado != null" >
+        mti_estado = #{mtiEstado,jdbcType=INTEGER},
+      </if>
+      <if test="mtiNombre != null" >
+        mti_nombre = #{mtiNombre,jdbcType=VARCHAR},
+      </if>
+      <if test="mtiDescripcion != null" >
+        mti_descripcion = #{mtiDescripcion,jdbcType=VARCHAR},
+      </if>
+      <if test="mtiFecAlta != null" >
+        mti_fec_alta = #{mtiFecAlta,jdbcType=DATE},
+      </if>
+      <if test="mtiFecBaja != null" >
+        mti_fec_baja = #{mtiFecBaja,jdbcType=DATE},
+      </if>
+      <if test="mtiFecModificacion != null" >
+        mti_fec_modificacion = #{mtiFecModificacion,jdbcType=DATE},
+      </if>
+      <if test="mtiUsuAlta != null" >
+        mti_usu_alta = #{mtiUsuAlta,jdbcType=INTEGER},
+      </if>
+      <if test="mtiUsuBaja != null" >
+        mti_usu_baja = #{mtiUsuBaja,jdbcType=INTEGER},
+      </if>
+      <if test="mtiUsuModificacion != null" >
+        mti_usu_modificacion = #{mtiUsuModificacion,jdbcType=INTEGER},
+      </if>
+    </set>
+    where mti_codigo = #{mtiCodigo,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gestorvisitas.model.Mtipo" >
+    update tb_ma_mtipo
+    set mti_estado = #{mtiEstado,jdbcType=INTEGER},
+      mti_nombre = #{mtiNombre,jdbcType=VARCHAR},
+      mti_descripcion = #{mtiDescripcion,jdbcType=VARCHAR},
+      mti_fec_alta = #{mtiFecAlta,jdbcType=DATE},
+      mti_fec_baja = #{mtiFecBaja,jdbcType=DATE},
+      mti_fec_modificacion = #{mtiFecModificacion,jdbcType=DATE},
+      mti_usu_alta = #{mtiUsuAlta,jdbcType=INTEGER},
+      mti_usu_baja = #{mtiUsuBaja,jdbcType=INTEGER},
+      mti_usu_modificacion = #{mtiUsuModificacion,jdbcType=INTEGER}
+    where mti_codigo = #{mtiCodigo,jdbcType=INTEGER}
+  </update>
+</mapper>

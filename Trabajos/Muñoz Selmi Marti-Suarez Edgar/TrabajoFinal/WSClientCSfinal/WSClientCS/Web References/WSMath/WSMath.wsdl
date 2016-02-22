@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:tns="http://ws.egcc.pe/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsp1_2="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" name="WSMath" targetNamespace="http://ws.egcc.pe/" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <xsd:schema>
+      <xsd:import schemaLocation="http://localhost:8080/WSApp1/WSMath?xsd=1" namespace="http://ws.egcc.pe/" />
+    </xsd:schema>
+  </types>
+  <message name="Eliminar">
+    <part name="parameters" element="tns:Eliminar" />
+  </message>
+  <message name="EliminarResponse">
+    <part name="parameters" element="tns:EliminarResponse" />
+  </message>
+  <message name="Registrar">
+    <part name="parameters" element="tns:Registrar" />
+  </message>
+  <message name="RegistrarResponse">
+    <part name="parameters" element="tns:RegistrarResponse" />
+  </message>
+  <message name="hello">
+    <part name="parameters" element="tns:hello" />
+  </message>
+  <message name="helloResponse">
+    <part name="parameters" element="tns:helloResponse" />
+  </message>
+  <message name="sumar">
+    <part name="parameters" element="tns:sumar" />
+  </message>
+  <message name="sumarResponse">
+    <part name="parameters" element="tns:sumarResponse" />
+  </message>
+  <message name="restar">
+    <part name="parameters" element="tns:restar" />
+  </message>
+  <message name="restarResponse">
+    <part name="parameters" element="tns:restarResponse" />
+  </message>
+  <message name="getClientes">
+    <part name="parameters" element="tns:getClientes" />
+  </message>
+  <message name="getClientesResponse">
+    <part name="parameters" element="tns:getClientesResponse" />
+  </message>
+  <message name="getClientesAll">
+    <part name="parameters" element="tns:getClientesAll" />
+  </message>
+  <message name="getClientesAllResponse">
+    <part name="parameters" element="tns:getClientesAllResponse" />
+  </message>
+  <message name="Actualizar">
+    <part name="parameters" element="tns:Actualizar" />
+  </message>
+  <message name="ActualizarResponse">
+    <part name="parameters" element="tns:ActualizarResponse" />
+  </message>
+  <portType name="WSMath">
+    <operation name="Eliminar">
+      <input wsam:Action="http://ws.egcc.pe/WSMath/EliminarRequest" message="tns:Eliminar" />
+      <output wsam:Action="http://ws.egcc.pe/WSMath/EliminarResponse" message="tns:EliminarResponse" />
+    </operation>
+    <operation name="Registrar">
+      <input wsam:Action="http://ws.egcc.pe/WSMath/RegistrarRequest" message="tns:Registrar" />
+      <output wsam:Action="http://ws.egcc.pe/WSMath/RegistrarResponse" message="tns:RegistrarResponse" />
+    </operation>
+    <operation name="hello">
+      <input wsam:Action="http://ws.egcc.pe/WSMath/helloRequest" message="tns:hello" />
+      <output wsam:Action="http://ws.egcc.pe/WSMath/helloResponse" message="tns:helloResponse" />
+    </operation>
+    <operation name="sumar">
+      <input wsam:Action="http://ws.egcc.pe/WSMath/sumarRequest" message="tns:sumar" />
+      <output wsam:Action="http://ws.egcc.pe/WSMath/sumarResponse" message="tns:sumarResponse" />
+    </operation>
+    <operation name="restar">
+      <input wsam:Action="http://ws.egcc.pe/WSMath/restarRequest" message="tns:restar" />
+      <output wsam:Action="http://ws.egcc.pe/WSMath/restarResponse" message="tns:restarResponse" />
+    </operation>
+    <operation name="getClientes">
+      <input wsam:Action="http://ws.egcc.pe/WSMath/getClientesRequest" message="tns:getClientes" />
+      <output wsam:Action="http://ws.egcc.pe/WSMath/getClientesResponse" message="tns:getClientesResponse" />
+    </operation>
+    <operation name="getClientesAll">
+      <input wsam:Action="http://ws.egcc.pe/WSMath/getClientesAllRequest" message="tns:getClientesAll" />
+      <output wsam:Action="http://ws.egcc.pe/WSMath/getClientesAllResponse" message="tns:getClientesAllResponse" />
+    </operation>
+    <operation name="Actualizar">
+      <input wsam:Action="http://ws.egcc.pe/WSMath/ActualizarRequest" message="tns:Actualizar" />
+      <output wsam:Action="http://ws.egcc.pe/WSMath/ActualizarResponse" message="tns:ActualizarResponse" />
+    </operation>
+  </portType>
+  <binding name="WSMathPortBinding" type="tns:WSMath">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="Eliminar">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="Registrar">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="hello">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="sumar">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="restar">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="getClientes">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="getClientesAll">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="Actualizar">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+  </binding>
+  <service name="WSMath">
+    <port name="WSMathPort" binding="tns:WSMathPortBinding">
+      <soap:address location="http://localhost:8080/WSApp1/WSMath" />
+    </port>
+  </service>
+</definitions>

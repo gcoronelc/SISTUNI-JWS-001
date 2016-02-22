@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gestorvisitas.criteria.UsuarioMapper" >
+  <resultMap id="BaseResultMap" type="com.gestorvisitas.model.Usuario" >
+    <id column="usu_codigo" property="usuCodigo" jdbcType="INTEGER" />
+    <result column="rol_codigo" property="rolCodigo" jdbcType="INTEGER" />
+    <result column="usu_jefe_codigo" property="usuJefeCodigo" jdbcType="INTEGER" />
+    <result column="usu_estado" property="usuEstado" jdbcType="INTEGER" />
+    <result column="usu_nombre" property="usuNombre" jdbcType="VARCHAR" />
+    <result column="usu_correo" property="usuCorreo" jdbcType="VARCHAR" />
+    <result column="usu_password" property="usuPassword" jdbcType="VARCHAR" />
+    <result column="usu_fec_alta" property="usuFecAlta" jdbcType="DATE" />
+    <result column="usu_fec_baja" property="usuFecBaja" jdbcType="DATE" />
+    <result column="usu_fec_modificacion" property="usuFecModificacion" jdbcType="DATE" />
+    <result column="usu_usu_baja" property="usuUsuBaja" jdbcType="INTEGER" />
+    <result column="usu_usu_alta" property="usuUsuAlta" jdbcType="INTEGER" />
+    <result column="usu_usu_modificacion" property="usuUsuModificacion" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    usu_codigo, rol_codigo, usu_jefe_codigo, usu_estado, usu_nombre, usu_correo, usu_password, 
+    usu_fec_alta, usu_fec_baja, usu_fec_modificacion, usu_usu_baja, usu_usu_alta, usu_usu_modificacion
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gestorvisitas.model.UsuarioExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_se_usuario
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_se_usuario
+    where usu_codigo = #{usuCodigo,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_se_usuario
+    where usu_codigo = #{usuCodigo,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.gestorvisitas.model.UsuarioExample" >
+    delete from tb_se_usuario
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.gestorvisitas.model.Usuario" >
+    insert into tb_se_usuario (usu_codigo, rol_codigo, usu_jefe_codigo, 
+      usu_estado, usu_nombre, usu_correo, 
+      usu_password, usu_fec_alta, usu_fec_baja, 
+      usu_fec_modificacion, usu_usu_baja, usu_usu_alta, 
+      usu_usu_modificacion)
+    values (#{usuCodigo,jdbcType=INTEGER}, #{rolCodigo,jdbcType=INTEGER}, #{usuJefeCodigo,jdbcType=INTEGER}, 
+      #{usuEstado,jdbcType=INTEGER}, #{usuNombre,jdbcType=VARCHAR}, #{usuCorreo,jdbcType=VARCHAR}, 
+      #{usuPassword,jdbcType=VARCHAR}, #{usuFecAlta,jdbcType=DATE}, #{usuFecBaja,jdbcType=DATE}, 
+      #{usuFecModificacion,jdbcType=DATE}, #{usuUsuBaja,jdbcType=INTEGER}, #{usuUsuAlta,jdbcType=INTEGER}, 
+      #{usuUsuModificacion,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gestorvisitas.model.Usuario" >
+    insert into tb_se_usuario
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="usuCodigo != null" >
+        usu_codigo,
+      </if>
+      <if test="rolCodigo != null" >
+        rol_codigo,
+      </if>
+      <if test="usuJefeCodigo != null" >
+        usu_jefe_codigo,
+      </if>
+      <if test="usuEstado != null" >
+        usu_estado,
+      </if>
+      <if test="usuNombre != null" >
+        usu_nombre,
+      </if>
+      <if test="usuCorreo != null" >
+        usu_correo,
+      </if>
+      <if test="usuPassword != null" >
+        usu_password,
+      </if>
+      <if test="usuFecAlta != null" >
+        usu_fec_alta,
+      </if>
+      <if test="usuFecBaja != null" >
+        usu_fec_baja,
+      </if>
+      <if test="usuFecModificacion != null" >
+        usu_fec_modificacion,
+      </if>
+      <if test="usuUsuBaja != null" >
+        usu_usu_baja,
+      </if>
+      <if test="usuUsuAlta != null" >
+        usu_usu_alta,
+      </if>
+      <if test="usuUsuModificacion != null" >
+        usu_usu_modificacion,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="usuCodigo != null" >
+        #{usuCodigo,jdbcType=INTEGER},
+      </if>
+      <if test="rolCodigo != null" >
+        #{rolCodigo,jdbcType=INTEGER},
+      </if>
+      <if test="usuJefeCodigo != null" >
+        #{usuJefeCodigo,jdbcType=INTEGER},
+      </if>
+      <if test="usuEstado != null" >
+        #{usuEstado,jdbcType=INTEGER},
+      </if>
+      <if test="usuNombre != null" >
+        #{usuNombre,jdbcType=VARCHAR},
+      </if>
+      <if test="usuCorreo != null" >
+        #{usuCorreo,jdbcType=VARCHAR},
+      </if>
+      <if test="usuPassword != null" >
+        #{usuPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="usuFecAlta != null" >
+        #{usuFecAlta,jdbcType=DATE},
+      </if>
+      <if test="usuFecBaja != null" >
+        #{usuFecBaja,jdbcType=DATE},
+      </if>
+      <if test="usuFecModificacion != null" >
+        #{usuFecModificacion,jdbcType=DATE},
+      </if>
+      <if test="usuUsuBaja != null" >
+        #{usuUsuBaja,jdbcType=INTEGER},
+      </if>
+      <if test="usuUsuAlta != null" >
+        #{usuUsuAlta,jdbcType=INTEGER},
+      </if>
+      <if test="usuUsuModificacion != null" >
+        #{usuUsuModificacion,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.gestorvisitas.model.UsuarioExample" resultType="java.lang.Integer" >
+    select count(*) from tb_se_usuario
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_se_usuario
+    <set >
+      <if test="record.usuCodigo != null" >
+        usu_codigo = #{record.usuCodigo,jdbcType=INTEGER},
+      </if>
+      <if test="record.rolCodigo != null" >
+        rol_codigo = #{record.rolCodigo,jdbcType=INTEGER},
+      </if>
+      <if test="record.usuJefeCodigo != null" >
+        usu_jefe_codigo = #{record.usuJefeCodigo,jdbcType=INTEGER},
+      </if>
+      <if test="record.usuEstado != null" >
+        usu_estado = #{record.usuEstado,jdbcType=INTEGER},
+      </if>
+      <if test="record.usuNombre != null" >
+        usu_nombre = #{record.usuNombre,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usuCorreo != null" >
+        usu_correo = #{record.usuCorreo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usuPassword != null" >
+        usu_password = #{record.usuPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usuFecAlta != null" >
+        usu_fec_alta = #{record.usuFecAlta,jdbcType=DATE},
+      </if>
+      <if test="record.usuFecBaja != null" >
+        usu_fec_baja = #{record.usuFecBaja,jdbcType=DATE},
+      </if>
+      <if test="record.usuFecModificacion != null" >
+        usu_fec_modificacion = #{record.usuFecModificacion,jdbcType=DATE},
+      </if>
+      <if test="record.usuUsuBaja != null" >
+        usu_usu_baja = #{record.usuUsuBaja,jdbcType=INTEGER},
+      </if>
+      <if test="record.usuUsuAlta != null" >
+        usu_usu_alta = #{record.usuUsuAlta,jdbcType=INTEGER},
+      </if>
+      <if test="record.usuUsuModificacion != null" >
+        usu_usu_modificacion = #{record.usuUsuModificacion,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_se_usuario
+    set usu_codigo = #{record.usuCodigo,jdbcType=INTEGER},
+      rol_codigo = #{record.rolCodigo,jdbcType=INTEGER},
+      usu_jefe_codigo = #{record.usuJefeCodigo,jdbcType=INTEGER},
+      usu_estado = #{record.usuEstado,jdbcType=INTEGER},
+      usu_nombre = #{record.usuNombre,jdbcType=VARCHAR},
+      usu_correo = #{record.usuCorreo,jdbcType=VARCHAR},
+      usu_password = #{record.usuPassword,jdbcType=VARCHAR},
+      usu_fec_alta = #{record.usuFecAlta,jdbcType=DATE},
+      usu_fec_baja = #{record.usuFecBaja,jdbcType=DATE},
+      usu_fec_modificacion = #{record.usuFecModificacion,jdbcType=DATE},
+      usu_usu_baja = #{record.usuUsuBaja,jdbcType=INTEGER},
+      usu_usu_alta = #{record.usuUsuAlta,jdbcType=INTEGER},
+      usu_usu_modificacion = #{record.usuUsuModificacion,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gestorvisitas.model.Usuario" >
+    update tb_se_usuario
+    <set >
+      <if test="rolCodigo != null" >
+        rol_codigo = #{rolCodigo,jdbcType=INTEGER},
+      </if>
+      <if test="usuJefeCodigo != null" >
+        usu_jefe_codigo = #{usuJefeCodigo,jdbcType=INTEGER},
+      </if>
+      <if test="usuEstado != null" >
+        usu_estado = #{usuEstado,jdbcType=INTEGER},
+      </if>
+      <if test="usuNombre != null" >
+        usu_nombre = #{usuNombre,jdbcType=VARCHAR},
+      </if>
+      <if test="usuCorreo != null" >
+        usu_correo = #{usuCorreo,jdbcType=VARCHAR},
+      </if>
+      <if test="usuPassword != null" >
+        usu_password = #{usuPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="usuFecAlta != null" >
+        usu_fec_alta = #{usuFecAlta,jdbcType=DATE},
+      </if>
+      <if test="usuFecBaja != null" >
+        usu_fec_baja = #{usuFecBaja,jdbcType=DATE},
+      </if>
+      <if test="usuFecModificacion != null" >
+        usu_fec_modificacion = #{usuFecModificacion,jdbcType=DATE},
+      </if>
+      <if test="usuUsuBaja != null" >
+        usu_usu_baja = #{usuUsuBaja,jdbcType=INTEGER},
+      </if>
+      <if test="usuUsuAlta != null" >
+        usu_usu_alta = #{usuUsuAlta,jdbcType=INTEGER},
+      </if>
+      <if test="usuUsuModificacion != null" >
+        usu_usu_modificacion = #{usuUsuModificacion,jdbcType=INTEGER},
+      </if>
+    </set>
+    where usu_codigo = #{usuCodigo,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gestorvisitas.model.Usuario" >
+    update tb_se_usuario
+    set rol_codigo = #{rolCodigo,jdbcType=INTEGER},
+      usu_jefe_codigo = #{usuJefeCodigo,jdbcType=INTEGER},
+      usu_estado = #{usuEstado,jdbcType=INTEGER},
+      usu_nombre = #{usuNombre,jdbcType=VARCHAR},
+      usu_correo = #{usuCorreo,jdbcType=VARCHAR},
+      usu_password = #{usuPassword,jdbcType=VARCHAR},
+      usu_fec_alta = #{usuFecAlta,jdbcType=DATE},
+      usu_fec_baja = #{usuFecBaja,jdbcType=DATE},
+      usu_fec_modificacion = #{usuFecModificacion,jdbcType=DATE},
+      usu_usu_baja = #{usuUsuBaja,jdbcType=INTEGER},
+      usu_usu_alta = #{usuUsuAlta,jdbcType=INTEGER},
+      usu_usu_modificacion = #{usuUsuModificacion,jdbcType=INTEGER}
+    where usu_codigo = #{usuCodigo,jdbcType=INTEGER}
+  </update>
+</mapper>

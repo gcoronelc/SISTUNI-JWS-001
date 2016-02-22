@@ -28,8 +28,7 @@ public class ProductoService {
   
   private static final Logger logger = LoggerFactory.getLogger(ProductoService.class);
   
-  private static String URL_BASE = "http://localhost:8080/spring-ws-rest-server/egcc/";
-  
+  private static String URL_BASE = "http://localhost:8081/spring-ws-rest-server/egcc/";
   private RestTemplate restTemplate = new RestTemplate();
 
 

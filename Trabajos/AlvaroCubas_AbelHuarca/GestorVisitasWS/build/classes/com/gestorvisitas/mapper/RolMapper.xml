@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gestorvisitas.criteria.RolMapper" >
+  <resultMap id="BaseResultMap" type="com.gestorvisitas.model.Rol" >
+    <id column="rol_codigo" property="rolCodigo" jdbcType="INTEGER" />
+    <result column="rol_estado" property="rolEstado" jdbcType="INTEGER" />
+    <result column="rol_nombre" property="rolNombre" jdbcType="VARCHAR" />
+    <result column="rol_descripcion" property="rolDescripcion" jdbcType="VARCHAR" />
+    <result column="rol_fec_alta" property="rolFecAlta" jdbcType="DATE" />
+    <result column="rol_fec_baja" property="rolFecBaja" jdbcType="DATE" />
+    <result column="rol_fec_modificacion" property="rolFecModificacion" jdbcType="DATE" />
+    <result column="rol_usu_alta" property="rolUsuAlta" jdbcType="INTEGER" />
+    <result column="rol_usu_baja" property="rolUsuBaja" jdbcType="INTEGER" />
+    <result column="rol_usu_modificacion" property="rolUsuModificacion" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    rol_codigo, rol_estado, rol_nombre, rol_descripcion, rol_fec_alta, rol_fec_baja, 
+    rol_fec_modificacion, rol_usu_alta, rol_usu_baja, rol_usu_modificacion
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gestorvisitas.model.RolExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_se_rol
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_se_rol
+    where rol_codigo = #{rolCodigo,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_se_rol
+    where rol_codigo = #{rolCodigo,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.gestorvisitas.model.RolExample" >
+    delete from tb_se_rol
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" useGeneratedKeys="true" keyProperty="rolCodigo"  parameterType="com.gestorvisitas.model.Rol" >
+    insert into tb_se_rol (rol_codigo, rol_estado, rol_nombre, 
+      rol_descripcion, rol_fec_alta, rol_fec_baja, 
+      rol_fec_modificacion, rol_usu_alta, rol_usu_baja, 
+      rol_usu_modificacion)
+    values (#{rolCodigo,jdbcType=INTEGER}, #{rolEstado,jdbcType=INTEGER}, #{rolNombre,jdbcType=VARCHAR}, 
+      #{rolDescripcion,jdbcType=VARCHAR}, #{rolFecAlta,jdbcType=DATE}, #{rolFecBaja,jdbcType=DATE}, 
+      #{rolFecModificacion,jdbcType=DATE}, #{rolUsuAlta,jdbcType=INTEGER}, #{rolUsuBaja,jdbcType=INTEGER}, 
+      #{rolUsuModificacion,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gestorvisitas.model.Rol" >
+    insert into tb_se_rol
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rolCodigo != null" >
+        rol_codigo,
+      </if>
+      <if test="rolEstado != null" >
+        rol_estado,
+      </if>
+      <if test="rolNombre != null" >
+        rol_nombre,
+      </if>
+      <if test="rolDescripcion != null" >
+        rol_descripcion,
+      </if>
+      <if test="rolFecAlta != null" >
+        rol_fec_alta,
+      </if>
+      <if test="rolFecBaja != null" >
+        rol_fec_baja,
+      </if>
+      <if test="rolFecModificacion != null" >
+        rol_fec_modificacion,
+      </if>
+      <if test="rolUsuAlta != null" >
+        rol_usu_alta,
+      </if>
+      <if test="rolUsuBaja != null" >
+        rol_usu_baja,
+      </if>
+      <if test="rolUsuModificacion != null" >
+        rol_usu_modificacion,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rolCodigo != null" >
+        #{rolCodigo,jdbcType=INTEGER},
+      </if>
+      <if test="rolEstado != null" >
+        #{rolEstado,jdbcType=INTEGER},
+      </if>
+      <if test="rolNombre != null" >
+        #{rolNombre,jdbcType=VARCHAR},
+      </if>
+      <if test="rolDescripcion != null" >
+        #{rolDescripcion,jdbcType=VARCHAR},
+      </if>
+      <if test="rolFecAlta != null" >
+        #{rolFecAlta,jdbcType=DATE},
+      </if>
+      <if test="rolFecBaja != null" >
+        #{rolFecBaja,jdbcType=DATE},
+      </if>
+      <if test="rolFecModificacion != null" >
+        #{rolFecModificacion,jdbcType=DATE},
+      </if>
+      <if test="rolUsuAlta != null" >
+        #{rolUsuAlta,jdbcType=INTEGER},
+      </if>
+      <if test="rolUsuBaja != null" >
+        #{rolUsuBaja,jdbcType=INTEGER},
+      </if>
+      <if test="rolUsuModificacion != null" >
+        #{rolUsuModificacion,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.gestorvisitas.model.RolExample" resultType="java.lang.Integer" >
+    select count(*) from tb_se_rol
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_se_rol
+    <set >
+      <if test="record.rolCodigo != null" >
+        rol_codigo = #{record.rolCodigo,jdbcType=INTEGER},
+      </if>
+      <if test="record.rolEstado != null" >
+        rol_estado = #{record.rolEstado,jdbcType=INTEGER},
+      </if>
+      <if test="record.rolNombre != null" >
+        rol_nombre = #{record.rolNombre,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rolDescripcion != null" >
+        rol_descripcion = #{record.rolDescripcion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rolFecAlta != null" >
+        rol_fec_alta = #{record.rolFecAlta,jdbcType=DATE},
+      </if>
+      <if test="record.rolFecBaja != null" >
+        rol_fec_baja = #{record.rolFecBaja,jdbcType=DATE},
+      </if>
+      <if test="record.rolFecModificacion != null" >
+        rol_fec_modificacion = #{record.rolFecModificacion,jdbcType=DATE},
+      </if>
+      <if test="record.rolUsuAlta != null" >
+        rol_usu_alta = #{record.rolUsuAlta,jdbcType=INTEGER},
+      </if>
+      <if test="record.rolUsuBaja != null" >
+        rol_usu_baja = #{record.rolUsuBaja,jdbcType=INTEGER},
+      </if>
+      <if test="record.rolUsuModificacion != null" >
+        rol_usu_modificacion = #{record.rolUsuModificacion,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_se_rol
+    set rol_codigo = #{record.rolCodigo,jdbcType=INTEGER},
+      rol_estado = #{record.rolEstado,jdbcType=INTEGER},
+      rol_nombre = #{record.rolNombre,jdbcType=VARCHAR},
+      rol_descripcion = #{record.rolDescripcion,jdbcType=VARCHAR},
+      rol_fec_alta = #{record.rolFecAlta,jdbcType=DATE},
+      rol_fec_baja = #{record.rolFecBaja,jdbcType=DATE},
+      rol_fec_modificacion = #{record.rolFecModificacion,jdbcType=DATE},
+      rol_usu_alta = #{record.rolUsuAlta,jdbcType=INTEGER},
+      rol_usu_baja = #{record.rolUsuBaja,jdbcType=INTEGER},
+      rol_usu_modificacion = #{record.rolUsuModificacion,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gestorvisitas.model.Rol" >
+    update tb_se_rol
+    <set >
+      <if test="rolEstado != null" >
+        rol_estado = #{rolEstado,jdbcType=INTEGER},
+      </if>
+      <if test="rolNombre != null" >
+        rol_nombre = #{rolNombre,jdbcType=VARCHAR},
+      </if>
+      <if test="rolDescripcion != null" >
+        rol_descripcion = #{rolDescripcion,jdbcType=VARCHAR},
+      </if>
+      <if test="rolFecAlta != null" >
+        rol_fec_alta = #{rolFecAlta,jdbcType=DATE},
+      </if>
+      <if test="rolFecBaja != null" >
+        rol_fec_baja = #{rolFecBaja,jdbcType=DATE},
+      </if>
+      <if test="rolFecModificacion != null" >
+        rol_fec_modificacion = #{rolFecModificacion,jdbcType=DATE},
+      </if>
+      <if test="rolUsuAlta != null" >
+        rol_usu_alta = #{rolUsuAlta,jdbcType=INTEGER},
+      </if>
+      <if test="rolUsuBaja != null" >
+        rol_usu_baja = #{rolUsuBaja,jdbcType=INTEGER},
+      </if>
+      <if test="rolUsuModificacion != null" >
+        rol_usu_modificacion = #{rolUsuModificacion,jdbcType=INTEGER},
+      </if>
+    </set>
+    where rol_codigo = #{rolCodigo,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gestorvisitas.model.Rol" >
+    update tb_se_rol
+    set rol_estado = #{rolEstado,jdbcType=INTEGER},
+      rol_nombre = #{rolNombre,jdbcType=VARCHAR},
+      rol_descripcion = #{rolDescripcion,jdbcType=VARCHAR},
+      rol_fec_alta = #{rolFecAlta,jdbcType=DATE},
+      rol_fec_baja = #{rolFecBaja,jdbcType=DATE},
+      rol_fec_modificacion = #{rolFecModificacion,jdbcType=DATE},
+      rol_usu_alta = #{rolUsuAlta,jdbcType=INTEGER},
+      rol_usu_baja = #{rolUsuBaja,jdbcType=INTEGER},
+      rol_usu_modificacion = #{rolUsuModificacion,jdbcType=INTEGER}
+    where rol_codigo = #{rolCodigo,jdbcType=INTEGER}
+  </update>
+</mapper>

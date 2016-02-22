@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration >
+  <context id="context1" >
+  <commentGenerator>
+      <property name="suppressAllComments" value="true"/>
+    </commentGenerator>
+    <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://190.81.47.196/gestor_visitas" userId="root" password="123456" />
+    <javaModelGenerator targetPackage="com.gestorvisitas.pruebaaaa" targetProject="GestorVisitasWS/src" />
+    <sqlMapGenerator targetPackage="com.gestorvisitas.pruebaaaa" targetProject="GestorVisitasWS/src" />
+    <javaClientGenerator targetPackage="com.gestorvisitas.pruebaaaa" targetProject="GestorVisitasWS/src" type="XMLMAPPER" />
+     <table schema="gestor_visitas" tableName="VW_VISITAS" domainObjectName="VistaVisitas" > </table>
+    <!--  
+     <table schema="gestor_visitas" tableName="tb_tr_cliente" domainObjectName="Cliente" > </table>
+    <table schema="gestor_visitas" tableName="tb_tr_visita" domainObjectName="Visita"> </table>
+    <table schema="gestor_visitas" tableName="tb_ma_mtipo" domainObjectName="Mtipo"> </table>
+    <table schema="gestor_visitas" tableName="tb_ma_tipo" domainObjectName="Tipo"> </table>
+    <table schema="gestor_visitas" tableName="tb_se_usuario" domainObjectName="Usuario"> </table>
+    <table schema="gestor_visitas" tableName="tb_se_rol" domainObjectName="Rol"> </table>
+    -->
+  </context>
+</generatorConfiguration>

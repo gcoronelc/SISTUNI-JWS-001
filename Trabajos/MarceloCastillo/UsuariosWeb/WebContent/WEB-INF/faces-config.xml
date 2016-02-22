@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<!-- =========== FULL CONFIGURATION FILE ================================== -->
+
+<faces-config version="1.2" 
+    xmlns="http://java.sun.com/xml/ns/javaee" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_1_2.xsd">
+
+	<managed-bean>
+		<managed-bean-name>usuarioMB</managed-bean-name>
+		<managed-bean-class>
+			pe.mcg.presentacion.UsuarioMB
+		</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	
+	<navigation-rule>
+        <from-view-id>/index.jsp</from-view-id>
+        <navigation-case>
+            <from-outcome>index-usuarioIns</from-outcome>
+            <to-view-id>/usuarioIns.jsp</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>index-mensaje</from-outcome>
+            <to-view-id>/mensaje.jsp</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>index-usuarioUpd</from-outcome>
+            <to-view-id>/usuarioUpd.jsp</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/usuarioIns.jsp</from-view-id>
+        <navigation-case>
+            <from-outcome>usuarioIns-index</from-outcome>
+            <to-view-id>/index.jsp</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>usuarioIns-mensaje</from-outcome>
+            <to-view-id>/mensaje.jsp</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/mensaje.jsp</from-view-id>
+        <navigation-case>
+            <from-outcome>mensaje-index</from-outcome>
+            <to-view-id>/index.jsp</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/usuarioUpd.jsp</from-view-id>
+        <navigation-case>
+            <from-outcome>usuarioUpd-index</from-outcome>
+            <to-view-id>/index.jsp</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>usuarioUpd-mensaje</from-outcome>
+            <to-view-id>/mensaje.jsp</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+
+
+</faces-config>

@@ -1,0 +1,544 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gestorvisitas.criteria.VisitaMapper" >
+  <resultMap id="BaseResultMap" type="com.gestorvisitas.model.Visita" >
+    <id column="vis_codigo" property="visCodigo" jdbcType="INTEGER" />
+    <id column="cli_ruc" property="cliRuc" jdbcType="VARCHAR" />
+    <result column="vis_estado" property="visEstado" jdbcType="INTEGER" />
+    <result column="pro_codigo" property="proCodigo" jdbcType="INTEGER" />
+    <result column="usu_codigo" property="usuCodigo" jdbcType="INTEGER" />
+    <result column="are_codigo" property="areCodigo" jdbcType="INTEGER" />
+    <result column="mot_codigo" property="motCodigo" jdbcType="INTEGER" />
+    <result column="tip_codigo" property="tipCodigo" jdbcType="INTEGER" />
+    <result column="vis_no_visita" property="visNoVisita" jdbcType="INTEGER" />
+    <result column="vis_numero_lineas" property="visNumeroLineas" jdbcType="INTEGER" />
+    <result column="vis_monto_aproximado" property="visMontoAproximado" jdbcType="DOUBLE" />
+    <result column="vis_latitud" property="visLatitud" jdbcType="VARCHAR" />
+    <result column="vis_longitud" property="visLongitud" jdbcType="VARCHAR" />
+    <result column="vis_com_responsable" property="visComResponsable" jdbcType="VARCHAR" />
+    <result column="vis_com_descripcion" property="visComDescripcion" jdbcType="VARCHAR" />
+    <result column="vis_contacto" property="visContacto" jdbcType="VARCHAR" />
+    <result column="vis_fec_inicio" property="visFecInicio" jdbcType="DATE" />
+    <result column="vis_fec_finalizacion" property="visFecFinalizacion" jdbcType="DATE" />
+    <result column="vis_com_fec_comprometida" property="visComFecComprometida" jdbcType="DATE" />
+    <result column="vis_fec_alta" property="visFecAlta" jdbcType="DATE" />
+    <result column="vis_fec_baja" property="visFecBaja" jdbcType="DATE" />
+    <result column="vis_fec_modificacion" property="visFecModificacion" jdbcType="DATE" />
+    <result column="vis_usu_alta" property="visUsuAlta" jdbcType="INTEGER" />
+    <result column="vis_usu_baja" property="visUsuBaja" jdbcType="INTEGER" />
+    <result column="vis_usu_modificacion" property="visUsuModificacion" jdbcType="INTEGER" />
+    <result column="car_codigo" property="carCodigo" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    vis_codigo, cli_ruc, vis_estado, pro_codigo, usu_codigo, are_codigo, mot_codigo, 
+    tip_codigo, vis_no_visita, vis_numero_lineas, vis_monto_aproximado, vis_latitud, 
+    vis_longitud, vis_com_responsable, vis_com_descripcion, vis_contacto, vis_fec_inicio, 
+    vis_fec_finalizacion, vis_com_fec_comprometida, vis_fec_alta, vis_fec_baja, vis_fec_modificacion, 
+    vis_usu_alta, vis_usu_baja, vis_usu_modificacion, car_codigo
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gestorvisitas.model.VisitaExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_tr_visita
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.gestorvisitas.model.VisitaKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_tr_visita
+    where vis_codigo = #{visCodigo,jdbcType=INTEGER}
+      and cli_ruc = #{cliRuc,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.gestorvisitas.model.VisitaKey" >
+    delete from tb_tr_visita
+    where vis_codigo = #{visCodigo,jdbcType=INTEGER}
+      and cli_ruc = #{cliRuc,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.gestorvisitas.model.VisitaExample" >
+    delete from tb_tr_visita
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" useGeneratedKeys="true" keyProperty="visCodigo" parameterType="com.gestorvisitas.model.Visita" >
+    insert into tb_tr_visita (vis_codigo, cli_ruc, vis_estado, 
+      pro_codigo, usu_codigo, are_codigo, 
+      mot_codigo, tip_codigo, vis_no_visita, 
+      vis_numero_lineas, vis_monto_aproximado, vis_latitud, 
+      vis_longitud, vis_com_responsable, vis_com_descripcion, 
+      vis_contacto, vis_fec_inicio, vis_fec_finalizacion, 
+      vis_com_fec_comprometida, vis_fec_alta, vis_fec_baja, 
+      vis_fec_modificacion, vis_usu_alta, vis_usu_baja, 
+      vis_usu_modificacion, car_codigo)
+    values (#{visCodigo,jdbcType=INTEGER}, #{cliRuc,jdbcType=VARCHAR}, #{visEstado,jdbcType=INTEGER}, 
+      #{proCodigo,jdbcType=INTEGER}, #{usuCodigo,jdbcType=INTEGER}, #{areCodigo,jdbcType=INTEGER}, 
+      #{motCodigo,jdbcType=INTEGER}, #{tipCodigo,jdbcType=INTEGER}, #{visNoVisita,jdbcType=INTEGER}, 
+      #{visNumeroLineas,jdbcType=INTEGER}, #{visMontoAproximado,jdbcType=DOUBLE}, #{visLatitud,jdbcType=VARCHAR}, 
+      #{visLongitud,jdbcType=VARCHAR}, #{visComResponsable,jdbcType=VARCHAR}, #{visComDescripcion,jdbcType=VARCHAR}, 
+      #{visContacto,jdbcType=VARCHAR}, #{visFecInicio,jdbcType=TIMESTAMP}, #{visFecFinalizacion,jdbcType=TIMESTAMP}, 
+      #{visComFecComprometida,jdbcType=DATE}, #{visFecAlta,jdbcType=DATE}, #{visFecBaja,jdbcType=DATE}, 
+      #{visFecModificacion,jdbcType=DATE}, #{visUsuAlta,jdbcType=INTEGER}, #{visUsuBaja,jdbcType=INTEGER}, 
+      #{visUsuModificacion,jdbcType=INTEGER}, #{carCodigo,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gestorvisitas.model.Visita" >
+    insert into tb_tr_visita
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="visCodigo != null" >
+        vis_codigo,
+      </if>
+      <if test="cliRuc != null" >
+        cli_ruc,
+      </if>
+      <if test="visEstado != null" >
+        vis_estado,
+      </if>
+      <if test="proCodigo != null" >
+        pro_codigo,
+      </if>
+      <if test="usuCodigo != null" >
+        usu_codigo,
+      </if>
+      <if test="areCodigo != null" >
+        are_codigo,
+      </if>
+      <if test="motCodigo != null" >
+        mot_codigo,
+      </if>
+      <if test="tipCodigo != null" >
+        tip_codigo,
+      </if>
+      <if test="visNoVisita != null" >
+        vis_no_visita,
+      </if>
+      <if test="visNumeroLineas != null" >
+        vis_numero_lineas,
+      </if>
+      <if test="visMontoAproximado != null" >
+        vis_monto_aproximado,
+      </if>
+      <if test="visLatitud != null" >
+        vis_latitud,
+      </if>
+      <if test="visLongitud != null" >
+        vis_longitud,
+      </if>
+      <if test="visComResponsable != null" >
+        vis_com_responsable,
+      </if>
+      <if test="visComDescripcion != null" >
+        vis_com_descripcion,
+      </if>
+      <if test="visContacto != null" >
+        vis_contacto,
+      </if>
+      <if test="visFecInicio != null" >
+        vis_fec_inicio,
+      </if>
+      <if test="visFecFinalizacion != null" >
+        vis_fec_finalizacion,
+      </if>
+      <if test="visComFecComprometida != null" >
+        vis_com_fec_comprometida,
+      </if>
+      <if test="visFecAlta != null" >
+        vis_fec_alta,
+      </if>
+      <if test="visFecBaja != null" >
+        vis_fec_baja,
+      </if>
+      <if test="visFecModificacion != null" >
+        vis_fec_modificacion,
+      </if>
+      <if test="visUsuAlta != null" >
+        vis_usu_alta,
+      </if>
+      <if test="visUsuBaja != null" >
+        vis_usu_baja,
+      </if>
+      <if test="visUsuModificacion != null" >
+        vis_usu_modificacion,
+      </if>
+      <if test="carCodigo != null" >
+        car_codigo,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="visCodigo != null" >
+        #{visCodigo,jdbcType=INTEGER},
+      </if>
+      <if test="cliRuc != null" >
+        #{cliRuc,jdbcType=VARCHAR},
+      </if>
+      <if test="visEstado != null" >
+        #{visEstado,jdbcType=INTEGER},
+      </if>
+      <if test="proCodigo != null" >
+        #{proCodigo,jdbcType=INTEGER},
+      </if>
+      <if test="usuCodigo != null" >
+        #{usuCodigo,jdbcType=INTEGER},
+      </if>
+      <if test="areCodigo != null" >
+        #{areCodigo,jdbcType=INTEGER},
+      </if>
+      <if test="motCodigo != null" >
+        #{motCodigo,jdbcType=INTEGER},
+      </if>
+      <if test="tipCodigo != null" >
+        #{tipCodigo,jdbcType=INTEGER},
+      </if>
+      <if test="visNoVisita != null" >
+        #{visNoVisita,jdbcType=INTEGER},
+      </if>
+      <if test="visNumeroLineas != null" >
+        #{visNumeroLineas,jdbcType=INTEGER},
+      </if>
+      <if test="visMontoAproximado != null" >
+        #{visMontoAproximado,jdbcType=DOUBLE},
+      </if>
+      <if test="visLatitud != null" >
+        #{visLatitud,jdbcType=VARCHAR},
+      </if>
+      <if test="visLongitud != null" >
+        #{visLongitud,jdbcType=VARCHAR},
+      </if>
+      <if test="visComResponsable != null" >
+        #{visComResponsable,jdbcType=VARCHAR},
+      </if>
+      <if test="visComDescripcion != null" >
+        #{visComDescripcion,jdbcType=VARCHAR},
+      </if>
+      <if test="visContacto != null" >
+        #{visContacto,jdbcType=VARCHAR},
+      </if>
+      <if test="visFecInicio != null" >
+        #{visFecInicio,jdbcType=DATE},
+      </if>
+      <if test="visFecFinalizacion != null" >
+        #{visFecFinalizacion,jdbcType=DATE},
+      </if>
+      <if test="visComFecComprometida != null" >
+        #{visComFecComprometida,jdbcType=DATE},
+      </if>
+      <if test="visFecAlta != null" >
+        #{visFecAlta,jdbcType=DATE},
+      </if>
+      <if test="visFecBaja != null" >
+        #{visFecBaja,jdbcType=DATE},
+      </if>
+      <if test="visFecModificacion != null" >
+        #{visFecModificacion,jdbcType=DATE},
+      </if>
+      <if test="visUsuAlta != null" >
+        #{visUsuAlta,jdbcType=INTEGER},
+      </if>
+      <if test="visUsuBaja != null" >
+        #{visUsuBaja,jdbcType=INTEGER},
+      </if>
+      <if test="visUsuModificacion != null" >
+        #{visUsuModificacion,jdbcType=INTEGER},
+      </if>
+      <if test="carCodigo != null" >
+        #{carCodigo,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.gestorvisitas.model.VisitaExample" resultType="java.lang.Integer" >
+    select count(*) from tb_tr_visita
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_tr_visita
+    <set >
+      <if test="record.visCodigo != null" >
+        vis_codigo = #{record.visCodigo,jdbcType=INTEGER},
+      </if>
+      <if test="record.cliRuc != null" >
+        cli_ruc = #{record.cliRuc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.visEstado != null" >
+        vis_estado = #{record.visEstado,jdbcType=INTEGER},
+      </if>
+      <if test="record.proCodigo != null" >
+        pro_codigo = #{record.proCodigo,jdbcType=INTEGER},
+      </if>
+      <if test="record.usuCodigo != null" >
+        usu_codigo = #{record.usuCodigo,jdbcType=INTEGER},
+      </if>
+      <if test="record.areCodigo != null" >
+        are_codigo = #{record.areCodigo,jdbcType=INTEGER},
+      </if>
+      <if test="record.motCodigo != null" >
+        mot_codigo = #{record.motCodigo,jdbcType=INTEGER},
+      </if>
+      <if test="record.tipCodigo != null" >
+        tip_codigo = #{record.tipCodigo,jdbcType=INTEGER},
+      </if>
+      <if test="record.visNoVisita != null" >
+        vis_no_visita = #{record.visNoVisita,jdbcType=INTEGER},
+      </if>
+      <if test="record.visNumeroLineas != null" >
+        vis_numero_lineas = #{record.visNumeroLineas,jdbcType=INTEGER},
+      </if>
+      <if test="record.visMontoAproximado != null" >
+        vis_monto_aproximado = #{record.visMontoAproximado,jdbcType=DOUBLE},
+      </if>
+      <if test="record.visLatitud != null" >
+        vis_latitud = #{record.visLatitud,jdbcType=VARCHAR},
+      </if>
+      <if test="record.visLongitud != null" >
+        vis_longitud = #{record.visLongitud,jdbcType=VARCHAR},
+      </if>
+      <if test="record.visComResponsable != null" >
+        vis_com_responsable = #{record.visComResponsable,jdbcType=VARCHAR},
+      </if>
+      <if test="record.visComDescripcion != null" >
+        vis_com_descripcion = #{record.visComDescripcion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.visContacto != null" >
+        vis_contacto = #{record.visContacto,jdbcType=VARCHAR},
+      </if>
+      <if test="record.visFecInicio != null" >
+        vis_fec_inicio = #{record.visFecInicio,jdbcType=DATE},
+      </if>
+      <if test="record.visFecFinalizacion != null" >
+        vis_fec_finalizacion = #{record.visFecFinalizacion,jdbcType=DATE},
+      </if>
+      <if test="record.visComFecComprometida != null" >
+        vis_com_fec_comprometida = #{record.visComFecComprometida,jdbcType=DATE},
+      </if>
+      <if test="record.visFecAlta != null" >
+        vis_fec_alta = #{record.visFecAlta,jdbcType=DATE},
+      </if>
+      <if test="record.visFecBaja != null" >
+        vis_fec_baja = #{record.visFecBaja,jdbcType=DATE},
+      </if>
+      <if test="record.visFecModificacion != null" >
+        vis_fec_modificacion = #{record.visFecModificacion,jdbcType=DATE},
+      </if>
+      <if test="record.visUsuAlta != null" >
+        vis_usu_alta = #{record.visUsuAlta,jdbcType=INTEGER},
+      </if>
+      <if test="record.visUsuBaja != null" >
+        vis_usu_baja = #{record.visUsuBaja,jdbcType=INTEGER},
+      </if>
+      <if test="record.visUsuModificacion != null" >
+        vis_usu_modificacion = #{record.visUsuModificacion,jdbcType=INTEGER},
+      </if>
+      <if test="record.carCodigo != null" >
+        car_codigo = #{record.carCodigo,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_tr_visita
+    set vis_codigo = #{record.visCodigo,jdbcType=INTEGER},
+      cli_ruc = #{record.cliRuc,jdbcType=VARCHAR},
+      vis_estado = #{record.visEstado,jdbcType=INTEGER},
+      pro_codigo = #{record.proCodigo,jdbcType=INTEGER},
+      usu_codigo = #{record.usuCodigo,jdbcType=INTEGER},
+      are_codigo = #{record.areCodigo,jdbcType=INTEGER},
+      mot_codigo = #{record.motCodigo,jdbcType=INTEGER},
+      tip_codigo = #{record.tipCodigo,jdbcType=INTEGER},
+      vis_no_visita = #{record.visNoVisita,jdbcType=INTEGER},
+      vis_numero_lineas = #{record.visNumeroLineas,jdbcType=INTEGER},
+      vis_monto_aproximado = #{record.visMontoAproximado,jdbcType=DOUBLE},
+      vis_latitud = #{record.visLatitud,jdbcType=VARCHAR},
+      vis_longitud = #{record.visLongitud,jdbcType=VARCHAR},
+      vis_com_responsable = #{record.visComResponsable,jdbcType=VARCHAR},
+      vis_com_descripcion = #{record.visComDescripcion,jdbcType=VARCHAR},
+      vis_contacto = #{record.visContacto,jdbcType=VARCHAR},
+      vis_fec_inicio = #{record.visFecInicio,jdbcType=DATE},
+      vis_fec_finalizacion = #{record.visFecFinalizacion,jdbcType=DATE},
+      vis_com_fec_comprometida = #{record.visComFecComprometida,jdbcType=DATE},
+      vis_fec_alta = #{record.visFecAlta,jdbcType=DATE},
+      vis_fec_baja = #{record.visFecBaja,jdbcType=DATE},
+      vis_fec_modificacion = #{record.visFecModificacion,jdbcType=DATE},
+      vis_usu_alta = #{record.visUsuAlta,jdbcType=INTEGER},
+      vis_usu_baja = #{record.visUsuBaja,jdbcType=INTEGER},
+      vis_usu_modificacion = #{record.visUsuModificacion,jdbcType=INTEGER},
+      car_codigo = #{record.carCodigo,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gestorvisitas.model.Visita" >
+    update tb_tr_visita
+    <set >
+      <if test="visEstado != null" >
+        vis_estado = #{visEstado,jdbcType=INTEGER},
+      </if>
+      <if test="proCodigo != null" >
+        pro_codigo = #{proCodigo,jdbcType=INTEGER},
+      </if>
+      <if test="usuCodigo != null" >
+        usu_codigo = #{usuCodigo,jdbcType=INTEGER},
+      </if>
+      <if test="areCodigo != null" >
+        are_codigo = #{areCodigo,jdbcType=INTEGER},
+      </if>
+      <if test="motCodigo != null" >
+        mot_codigo = #{motCodigo,jdbcType=INTEGER},
+      </if>
+      <if test="tipCodigo != null" >
+        tip_codigo = #{tipCodigo,jdbcType=INTEGER},
+      </if>
+      <if test="visNoVisita != null" >
+        vis_no_visita = #{visNoVisita,jdbcType=INTEGER},
+      </if>
+      <if test="visNumeroLineas != null" >
+        vis_numero_lineas = #{visNumeroLineas,jdbcType=INTEGER},
+      </if>
+      <if test="visMontoAproximado != null" >
+        vis_monto_aproximado = #{visMontoAproximado,jdbcType=DOUBLE},
+      </if>
+      <if test="visLatitud != null" >
+        vis_latitud = #{visLatitud,jdbcType=VARCHAR},
+      </if>
+      <if test="visLongitud != null" >
+        vis_longitud = #{visLongitud,jdbcType=VARCHAR},
+      </if>
+      <if test="visComResponsable != null" >
+        vis_com_responsable = #{visComResponsable,jdbcType=VARCHAR},
+      </if>
+      <if test="visComDescripcion != null" >
+        vis_com_descripcion = #{visComDescripcion,jdbcType=VARCHAR},
+      </if>
+      <if test="visContacto != null" >
+        vis_contacto = #{visContacto,jdbcType=VARCHAR},
+      </if>
+      <if test="visFecInicio != null" >
+        vis_fec_inicio = #{visFecInicio,jdbcType=DATE},
+      </if>
+      <if test="visFecFinalizacion != null" >
+        vis_fec_finalizacion = #{visFecFinalizacion,jdbcType=DATE},
+      </if>
+      <if test="visComFecComprometida != null" >
+        vis_com_fec_comprometida = #{visComFecComprometida,jdbcType=DATE},
+      </if>
+      <if test="visFecAlta != null" >
+        vis_fec_alta = #{visFecAlta,jdbcType=DATE},
+      </if>
+      <if test="visFecBaja != null" >
+        vis_fec_baja = #{visFecBaja,jdbcType=DATE},
+      </if>
+      <if test="visFecModificacion != null" >
+        vis_fec_modificacion = #{visFecModificacion,jdbcType=DATE},
+      </if>
+      <if test="visUsuAlta != null" >
+        vis_usu_alta = #{visUsuAlta,jdbcType=INTEGER},
+      </if>
+      <if test="visUsuBaja != null" >
+        vis_usu_baja = #{visUsuBaja,jdbcType=INTEGER},
+      </if>
+      <if test="visUsuModificacion != null" >
+        vis_usu_modificacion = #{visUsuModificacion,jdbcType=INTEGER},
+      </if>
+      <if test="carCodigo != null" >
+        car_codigo = #{carCodigo,jdbcType=INTEGER},
+      </if>
+    </set>
+    where vis_codigo = #{visCodigo,jdbcType=INTEGER}
+      and cli_ruc = #{cliRuc,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gestorvisitas.model.Visita" >
+    update tb_tr_visita
+    set vis_estado = #{visEstado,jdbcType=INTEGER},
+      pro_codigo = #{proCodigo,jdbcType=INTEGER},
+      usu_codigo = #{usuCodigo,jdbcType=INTEGER},
+      are_codigo = #{areCodigo,jdbcType=INTEGER},
+      mot_codigo = #{motCodigo,jdbcType=INTEGER},
+      tip_codigo = #{tipCodigo,jdbcType=INTEGER},
+      vis_no_visita = #{visNoVisita,jdbcType=INTEGER},
+      vis_numero_lineas = #{visNumeroLineas,jdbcType=INTEGER},
+      vis_monto_aproximado = #{visMontoAproximado,jdbcType=DOUBLE},
+      vis_latitud = #{visLatitud,jdbcType=VARCHAR},
+      vis_longitud = #{visLongitud,jdbcType=VARCHAR},
+      vis_com_responsable = #{visComResponsable,jdbcType=VARCHAR},
+      vis_com_descripcion = #{visComDescripcion,jdbcType=VARCHAR},
+      vis_contacto = #{visContacto,jdbcType=VARCHAR},
+      vis_fec_inicio = #{visFecInicio,jdbcType=DATE},
+      vis_fec_finalizacion = #{visFecFinalizacion,jdbcType=DATE},
+      vis_com_fec_comprometida = #{visComFecComprometida,jdbcType=DATE},
+      vis_fec_alta = #{visFecAlta,jdbcType=DATE},
+      vis_fec_baja = #{visFecBaja,jdbcType=DATE},
+      vis_fec_modificacion = #{visFecModificacion,jdbcType=DATE},
+      vis_usu_alta = #{visUsuAlta,jdbcType=INTEGER},
+      vis_usu_baja = #{visUsuBaja,jdbcType=INTEGER},
+      vis_usu_modificacion = #{visUsuModificacion,jdbcType=INTEGER},
+      car_codigo = #{carCodigo,jdbcType=INTEGER}
+    where vis_codigo = #{visCodigo,jdbcType=INTEGER}
+      and cli_ruc = #{cliRuc,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,753 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <title>Servicios REST con Jersey y JAX-RS</title>
+
+    <meta name="description" content="Servicios REST con Jersey y JAX-RS">
+    <meta name="author" content="Ricardo Borillo Domenech">
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+
+    <!-- For printing -->
+    <link rel="stylesheet" href="css/print/pdf.css" media="print">
+
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <style type="text/css">
+      .reveal pre code { padding: 1em; }
+      strong { color: cyan; }
+      p.cite { margin-top: 1.5em; }
+   </style>
+  </head>
+
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section>
+          <h1>Servicios REST</h1>
+          <h3>Jersey JAX-RS</h3>
+          <img alt="Roadshow" src="img/roadshow.jpg">
+        </section>
+
+        <section>
+          <h2>Yo</h2>
+          <pre><code class="javascript">
+          {
+             name : 'Ricardo Borillo',
+             company : 'Universitat Jaume I',
+             mail : 'borillo@uji.es',
+             social : {
+                twitter : '@borillo',
+                blog : 'xml-utils.com',
+                linkedin : 'linkedin.com/in/borillo'
+             }
+          }
+          </code></pre>
+        </section>
+
+        <section>
+          <h2>Yo</h2>
+          <div style="width: 60%; margin: auto; background-color: white;"><img alt="yo" src="img/yo.png" /></div>
+        </section>
+
+        <section>
+          <h2>Índice</h2>
+          <img alt="yo" src="img/indice.png" style="display: inline-block;" width="50%" />
+          <ul style="vertical-align: top;">
+            <li>Servicios web</li>
+            <li>HTTP y REST</li>
+            <li>Uso</li>
+            <li>Jersey JAX-RS</li>
+            <li>Testing</li>
+            <li>El futuro de JAX-RS</li>
+          </ul>
+        </section>
+
+        <section>
+          <h1>Servicios web</h1>
+        </section>
+
+        <section>
+          <h3>Wikipedia:</h3>
+          <p class="cite">"Un servicio web es una tecnología que utiliza un conjunto de protocolos y estándares que sirven para intercambiar datos entre aplicaciones. Distintas aplicaciones de software desarrolladas en lenguajes de programación diferentes, y ejecutadas sobre cualquier plataforma, pueden utilizar los servicios web para intercambiar datos en redes de ordenadores como Internet."</cite>
+        </section>
+
+        <section>
+          <h3>Distintas aproximaciones:</h3>
+          <p><strong>SOAP</strong>. Formato XML e independiente del protocolo. Implementado en Metro (JAX-WS)</p>
+          <p class="cite">"SOAP (Simple Object Access Protocol) es un protocolo estándar que define cómo dos objetos en diferentes procesos pueden comunicarse por medio de intercambio de datos XML"</cite>
+        </section>
+
+        <section>
+          <h3>Distintas aproximaciones:</h3>
+          <p><strong>REST</strong>. Cualquier formato sobre HTTP. Implementado en Jersey (JAX-RS)</p>
+          <p class="cite">"Cualquier interfaz web simple sin las abstracciones adicionales de los protocolos basados en patrones de intercambio de mensajes"</cite>
+        </section>
+
+        <section>
+          <h3>La gran ventaja de REST</h3>
+          <h2>Aprovecha al máximo la insfrastructura de HTTP</h2>
+          <p>Simplicidad, escalabilidad, cacheo, seguridad, ...</p>
+        </section>
+
+        <section>
+          <h1>REST != RPC</h1>
+          <p>Evitar cosas como:</p>
+          <pre><code class="no-highlight">/getUsuario
+/getAllAsuarios
+/modificaCuentaById</code></pre>
+          <p>En su lugar utilizamos nombres que definen recursos:</p>
+          <pre><code class="no-highlight">/usuarios
+/usuarios/1
+/usuarios/1/facturas</code></pre>
+        </section>
+
+        <section>
+          <h3>No usamos SOAP porque:</h3>
+          <ul>
+            <li>Complejo y dificil de mantener (WSDL)</li>
+            <li class="fragment">Necesidad de un framework también en el cliente</li>
+            <li class="fragment">Problemas de interoperabilidad</li>
+            <li class="fragment">Problemas para ser usado desde móviles o JavaScript</li>
+            <li class="fragment">No aprovecha al 100% HTTP</li>
+            <li class="fragment">Muchísimos estándares a conocer: ws-*</li>
+          </ul>
+          <img class="fragment" alt="ws-*" src="img/ws*.gif" style="width:300px;">
+        </section>
+
+        <section>
+        <img src="img/ws.png" style="margin-top:2.5em;">
+        </section>
+
+        <section>
+        <img src="img/empresas.png" style="margin-top:2.5em;">
+        </section>
+
+        <section>
+        <img src="img/rest.png" style="margin-top:2.5em;">
+        </section>
+
+        <section>
+          <h1>HTTP y REST</h1>
+        </section>
+
+        <section>
+          <h3>HTTP: Accediendo a contenidos en la web</h3>
+          <p>A través de un navegador web:</p>
+          <ul>
+            <li>Consulta de páginas</li>
+            <li>Envío de formularios</li>
+            <li>Subir ficheros al servidor</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>HTTP: Accediendo a contenidos en la web</h3>
+
+          <p>Desde línea de comandos</p>
+          <pre><code class="no-highlight">curl -XGET http://www.google.es/</code></pre>
+
+          <div class="fragment">
+            <p>Desde algún lenguaje de programación como Java</p>
+            <pre><code class="java">DefaultHttpClient httpclient = new DefaultHttpClient();
+HttpGet httpGet = new HttpGet("http://www.google.es/");
+HttpResponse response = httpclient.execute(httpGet);</code></pre>
+          </div>
+          </section>
+
+        <section>
+          <h3>HTTP: Accediendo a contenidos en la web</h3>
+            <p>O con el API cliente de Jersey JAX-RS:</p>
+            <pre><code class="java">Client client = Client.create();
+WebResource webResource = client.resource("http://www.google.es/");
+ClientResponse response = webResource.accept("text/html").get(ClientResponse.class);
+if (response.getStatus() == 200) {
+    System.out.println(response.getEntity(String.class));
+}</code></pre>
+            <img alt="JAX-RS" src="img/jaxrs.gif" />
+        </section>
+
+        <section>
+          <h3>REST aprovecha la arquitectura de la web:</h3>
+          <img alt="Verbos" src="img/verbos.png" width="50%" />
+        </section>
+
+        <section>
+          <h3>REST está orientado a recursos. Estos son nombres, no verbos. Acciones:</h3>
+          <ul>
+            <li><strong>GET</strong>: Recuperación de un recurso</li>
+            <li><strong>POST</strong>: Creación de un nuevo recurso</li>
+            <li><strong>PUT</strong>: Modificación de un recurso o creación si ya conocemos la clave</li>
+            <li><strong>DELETE</strong>: Eliminación de un recurso</li>
+            <li><strong>HEAD</strong>: Envío sólo de cabeceras. Muy utilizada para comprobar el Last-Modified.</li>
+          </ul>
+        </section>
+
+        <section>
+        <img src="img/lovebooks.jpg" style="margin-top: 2.5em;">
+        </section>
+
+        <section>
+        <img src="img/httpbook.jpg" style="margin-top: 2.5em;">
+        </section>        
+
+        <section>
+          <h3>Ejemplos:</h3>
+
+          <p>Lista todos los coches o recupera uno</p>
+          <pre><code class="no-highlight" style="padding:1em;">GET /cars
+GET /cars/1234AAW</code></pre>
+
+          <p>Añade, modifica o elimina un coche</p>
+          <pre><code class="no-highlight" style="padding:1em;">POST /cars
+PUT /cars/1234AAW
+DELETE /cars/1234AAW</code></pre>
+        </section>
+
+        <section>
+          <h3>Independiente del formato intercambiado:</h3>
+          <img alt="Formatos" src="img/tags.png">
+        </section>
+
+        <section>
+          <h1>Uso</h1>
+        </section>
+
+        <section>
+          <h1>Diseño de un API</h1>
+          <ul>
+            <li>Nos centramos en nuestro negocio: Buen diseño del software</li>
+            <li class="fragment">Exposición de nuestro modelo como recursos</li>
+            <li class="fragment">Diseño modular</li>
+            <li class="fragment">Soporte de varios formatos y operaciones</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Independencia de la capa cliente:</h3>
+          <img alt="Multiplataforma" src="img/multiplataforma.png" />
+        </section>
+
+        <section>
+          <h1>Jersey JAX-RS</h1>
+        </section>
+
+        <section>
+          <h3>¿Qué es?</h3>
+          <p>Jersey es la implementación Java de referencia del estándar JAX-RS para la definición de servicios REST:</p>
+          <pre><code class="no-highlight">https://jersey.dev.java.net/</code></pre>
+          <img alt="Jersey" width="20%" src="img/jersey.png" />
+        </section>
+
+        <section>
+          <h3>¿Qué es?</h3>
+          <h3>Objetivos generales:</h3>
+          <ul>
+            <li>Definir servicios en forma de POJOs</li>
+            <li class="fragment">Mapear peticiones y respuestas HTTP a esos POJOs</li>
+            <li class="fragment">Independencias del formato de transferencia</li>
+            <li class="fragment">Independiente del contenedor</li>
+            <li class="fragment">Parte de Java EE</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>¿Qué es?</h3>
+          <p>Mapear peticiones HTTP a código Java</p>
+          <p><strong>@GET</strong> / <strong>@POST</strong> / <strong>@PUT</strong> / <strong>@DELETE</strong></p>
+          <pre><code class="java">@Path("users")
+public class UsersResource 
+{
+   @GET
+   public List&lt;User> getUsers() {
+      ...
+   }
+}</code></pre>
+          <pre><code class="no-highlight">GET /users</code></pre>
+        </section>
+
+        <section>
+          <h3>¿Qué es?</h3>
+          <p>Mapear parámetros de URL a parámetros de entrada a los métodos</p>
+          <p><strong>@PathParam</strong> / <strong>@QueryParam</strong></p>
+          <pre><code class="java">@GET
+@Path("/users/{userId}")
+public User getUser(
+   @PathParam("userId") String userId, 
+   @QueryParam("debug") @DefaultValue("5") String debug) 
+{ 
+}</code></pre>
+          <pre><code class="no-highlight">GET /users/1421?debug=S</code></pre>
+        </section>
+
+        <section>
+          <h3>¿Qué es?</h3>
+          <p>Declaración del formato de los contenidos recibidos o emitidos</p>
+          <p><strong>@Consumes</strong> / <strong>@Produces</strong></p>
+          <pre><code class="java">@GET
+@Produces(MediaType.APPLICATION_XML)
+public List&lt;User> getUsers() { 
+}
+
+@PUT
+@Consumes(MediaType.APPLICATION_JSON)
+public void updateUser(User user) { 
+}</code></pre>
+        </section>
+
+        <section>
+          <h3>Mapeo de la petición HTTP:</h3>
+          <img alt="Mapeo HTTP" src="img/mapeo.png">
+        </section>
+
+        <section>
+          <h3>Mapeo de la respuesta HTTP:</h3>
+          <img alt="Respuesta HTTP" src="img/mapeo-respuesta.png">
+        </section>
+
+        <section>
+          <h3>Códigos de respuesta HTTP:</h3>
+          <ul style="font-size:70%;">
+            <li><strong>1xx</strong> Informativos</li>
+            <li><strong>2xx</strong> De éxito (200 OK, 201 Created, 202 Accepted, 204 No Content)</li>
+            <li><strong>3xx</strong> Redirecciones (301 Moved Permanently, 302 Found, 304 Not Modified</li>
+            <li><strong>4xx</strong> Error en cliente (400 Bad Request, 401 Unauthorized, 403 Forbidden, 404 Not Found, 405 Method Not Allowed)</li>
+            <li><strong>5xx</strong> Error en servidor (500 Internal Server Error, 501 Not Implemented, 502 Bad Gateway, 503 Service Unavailable)</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Generación de distintos formatos:</h3>
+          <ul>
+            <li><strong>XML/JSON</strong> JAXB y Jackson</li>
+            <li><strong>ATOM</strong> Apache Abdera</li>
+            <li><strong>Personalizado</strong> MessageBodyReader y MessageBodyWriter</li>
+          </ul>
+        </section>
+
+        <section>
+        <img src="img/lovebooks.jpg" style="margin-top: 2.5em;"> 
+        </section>
+
+        <section>
+          <img alt="Libro REST" src="img/restbook1.gif" style="margin-top: 2.5em;" />
+        </section>
+
+        <section>
+        <img src="img/books.png" style="margin-top: 2.5em;">
+        </section>
+
+        <section>
+        <img src="img/showcode.png" style="margin-top: 2.5em;">
+        </section>        
+
+        <section>
+          <h3>Configuración de una aplicación web Jersey</h3>          
+          <p>Añadiendo las dependencias al proyecto descargándolas desde:</p>
+          <pre><code class="no-highlight">http://jersey.dev.java.net/</code></pre>
+          <p>Ejemplo:</p>
+          <pre><code class="no-highlight">https://github.com/borillo/java-roadshow-rest/tree/master/examples/jersey-simple</code></pre>
+        </section>        
+
+        <section>
+          <h3>Configuración de una aplicación web Jersey</h3>          
+          <p>Usando Maven:</p>
+          <pre><code class="xml">&lt;dependency>
+  &lt;groupId>com.sun.jersey&lt;/groupId>
+  &lt;artifactId>jersey-server&lt;/artifactId>
+  &lt;version>1.14&lt;/version>
+&lt;/dependency>
+
+&lt;dependency>
+  &lt;groupId>com.sun.jersey&lt;/groupId>
+  &lt;artifactId>jersey-servlet&lt;/artifactId>
+  &lt;version>1.14&lt;/version>
+&lt;/dependecy></code></pre>
+        </section>        
+
+        <section>
+          <img alt="Libro Maven" src="img/mavenbook.jpg" style="margin-top: 2.5em;" />
+          <p>Ejemplo:</p>
+          <pre><code class="no-hightlight">https://github.com/borillo/java-roadshow-rest/tree/master/examples/jersey-maven</code></pre>
+        </section>
+
+        <section>
+          <h3>Configuración de una aplicación web Jersey</h3>
+          <p>Definición del web.xml:</p>
+          <pre><code class="xml" style="font-size:75%;">&lt;web-app>
+  &lt;servlet>
+    &lt;servlet-name>jaxrs-servlet&lt;/servlet-name>
+    &lt;servlet-class>
+       com.sun.jersey.spi.container.servlet.ServletContainer
+    &lt;/servlet-class>
+    &lt;init-param>
+      &lt;param-name>com.sun.jersey.config.property.packages&lt;/param-name>
+      &lt;param-value>com.decharlas.test.services&lt;/param-value>
+    &lt;/init-param>
+    &lt;load-on-startup>1&lt;/load-on-startup>
+  &lt;/servlet>  
+  &lt;servlet-mapping>
+    &lt;servlet-name>jaxrs-servlet&lt;/servlet-name>
+    &lt;url-pattern>/rest/*&lt;/url-pattern>
+  &lt;/servlet-mapping>
+&lt;/web-app></code></pre>
+        </section>
+
+        <section>
+          <h3>Configuración de una aplicación web Jersey</h3>
+          <p>Si usamos Servlet 3.0:</p>
+          <pre><code class="java">@ApplicationPath("rest")
+public class MyApplication extends PackagesResourceConfig {
+   public MyApplication() {
+      super("com.decharlas.test.services");
+   }    
+}</code></pre>
+          <img alt="Tomcat" src="img/tomcat.gif" />
+        </section>
+
+        <section>
+          <h3>Ejemplo básico:</h3>
+          <pre><code class="java">package com.decharlas.test.services;
+
+@Path("users")
+public class UserResource {
+   @GET
+   public String sayHello() {
+      return "Hello world!!!";
+   }
+ }</code></pre>           
+          <div class="fragment">
+            <p>Acceso desde el navegador o línea de comandos:</p>
+            <pre><code class="no-highlight" style="font-size: 80%;">GET -XGET http://localhost:8080/users</code></pre>
+          </div>
+        </section>        
+
+        <section>
+          <h3>Inicio de la aplicación:</h3>
+          <p>Eclipse "Run on server" o <code>jetty:run</code> en Maven:</p>
+          <pre><code class="no-hightlight" style="font-size:70%;">27-oct-2012 20:04:31 com.sun.jersey.api.core.PackagesResourceConfig init
+INFO: Scanning for root resource and provider classes in the packages:
+  com.fasterxml.jackson.jaxrs.json
+  com.decharlas.services
+27-oct-2012 20:04:31 com.sun.jersey.api.core.ScanningResourceConfig logClasses
+INFO: Root resource classes found:
+  class com.decharlas.services.UserResource
+27-oct-2012 20:04:31 com.sun.jersey.api.core.ScanningResourceConfig logClasses
+INFO: Provider classes found:
+  class com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider
+  class com.fasterxml.jackson.jaxrs.json.JsonParseExceptionMapper
+  class com.fasterxml.jackson.jaxrs.json.JsonMappingExceptionMapper
+  class com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider
+INFO: Initiating Jersey application, version 'Jersey: 1.14 06/29/2012 05:14 PM'
+</code></pre>
+        </section>
+
+        <section>
+        <img src="img/demo.png" style="margin-top: 2.5em;">
+        </section>        
+
+        <section>
+          <h3>Ejemplo JSON:</h3>
+          <p>Partimos de los datos datos en forma de Java Bean:</p>
+          <pre><code class="java">@XmlRootElement
+public class User {
+   private Long id;
+   private String name;
+}</code></pre>
+          <p class="fragment">El servicio REST los serializa con JAXB o Jackson</p>
+        </section>
+
+        <section>
+          <img alt="JAXB" src="img/jaxb.jpg" style="width:80%; margin-top:2.5em;" />
+          <p class="fragment">También funciona para JSON</p>
+          <p class="fragment">Natural JSON con Jackson</p>
+        </section>        
+
+        <section>
+          <p>JSON serializado por JAXB:
+          <pre><code class="javascript">{
+  "user": [{
+    "id": "1",
+    "name": "Pedro Perez Pardo"
+  }]
+}</code></pre>
+          <p>JSON serializado por Jackson:
+          <pre><code class="javascript">[{
+  "id": 1,
+  "name": "Pedro Perez Pardo"
+}]</code></pre>
+        </section>
+
+        <section>
+          <h2>Uso de Jackson</h2>
+          <h3>Configuración extra del web.xml</h3>
+          <pre><code class="xml" style="font-size:75%;">&lt;servlet>
+  &lt;servlet-name>jaxrs-servlet&lt;/servlet-name>
+  &lt;servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer&lt;/servlet-class>
+  &lt;init-param>
+    &lt;param-name>com.sun.jersey.config.property.packages&lt;/param-name>
+    &lt;param-value>com.fasterxml.jackson.jaxrs.json; ...&lt;/param-value>
+  &lt;/init-param>
+  ...
+&lt;/servlet>
+</code></pre>
+        </section>
+
+        <section>
+          <h3>Ejemplo JSON y XML:</h3>
+          <pre><code class="java">@Path("users")
+public class UserResource {
+   @GET
+   @Produces({ "application/json", "text/xml" })
+   public User getUser() {
+      return new User(1, "Usuario 1");
+   }
+ }</code></pre>
+          <pre><code class="no-highlight" style="font-size: 80%;">GET -XGET -H "Accept: application/json" http://localhost:8080/users
+GET -XGET -H "Accept: text/xml" http://localhost:8080/users</code></pre>
+        </section>        
+
+        <section>
+        <img src="img/demo.png" style="margin-top: 2.5em;">
+        </section>        
+
+        <section>
+          <h3>Cliente de acceso al servicio JSON:</h3>
+          <pre><code class="java">@Path("users")
+public class UserResource {
+   @GET
+   @Path("{id}")
+   @Produces({ "application/json", "text/xml" })
+   public User getUser(@PathParam("id") String id) {
+      return new User(id, "Usuario 1");
+   }
+ }</code></pre>
+          <pre><code class="java" style="font-size:75%;">Client client = Client.create();
+WebResource resource = client.resource("http://localhost:8080/jersey-maven/rest");
+ClientResponse response = resource.path("/users/1").get(ClientResponse.class);
+User user = response.getEntity(User.class)</code></pre>
+        </section>
+
+        <section>
+          <h3>Búsqueda en twitter:</h3>
+          <p>Recuperación del resultado como un JSONObject:</p>
+          <pre><code class="java" style="font-size:75%;">Client client = Client.create();
+client.addFilter(new LoggingFilter());
+
+WebResource resource = client.resource("http://search.twitter.com/");
+
+ClientResponse response = resource.path("search.json")
+        .queryParam("q", "oracle+roadshow").get(ClientResponse.class);
+JSONObject data = response.getEntity(JSONObject.class);
+
+Assert.assertEquals(Status.OK.getStatusCode(), response.getStatus());
+Assert.assertEquals(1, data.getInt("page"));</code></pre>
+        </section>
+
+        <section>
+          <h3>Gestión de errores</h3>
+          <p>Uso del intefaz ExceptionMapper para interceptar excepciones:</p>
+          <pre><code class="java">@Provider
+public class CommonExceptionMapper implements ExceptionMapper&lt;Exception> {
+   @Override
+   public Response toResponse(Exception exception) {
+      log.error("Handled by ExceptionMapper", exception);
+      return Response.serverError().type(MediaType.TEXT_PLAIN)
+             .entity(exception.getMessage()).build();
+   }
+}</code></pre>
+           <p class="fragment">Los <strong>@Provider</strong> permiten interactuar con el ciclo petición/respuesta</p>
+        </section>
+
+        <section>
+        <img src="img/demo.png" style="margin-top: 2.5em;">
+        </section>
+
+        <section>
+          <h3>Otras funcionalidades disponibles:</h3>
+          <ul>
+            <li>Hypermedia</li>
+            <li class="fragment">Seguridad: OAuth, SSL, etc</li>
+            <li class="fragment">Logging</li>
+            <li class="fragment">Gestión de excepciones</li>
+            <li class="fragment">Soporte para Spring Framework</li>
+            <li class="fragment">API de acceso cliente</li>
+            <li class="fragment">Uploads: Jersey Multipart</li>
+            <li class="fragment">Testing: Jersey Test Framework</li>
+            <li class="fragment">Y mucho más ...</li>
+          </ul>
+        </section>
+
+        <section>
+          <h1>Testing</h1>
+        </section>
+
+        <section>
+          <h3>Definición</h3>
+          <img alt="Wikipedia" src="img/wikipedia.png" align="left" style="width:300px;">
+          <p class="cite">"Unit testing is a software verification and validation method in which a programmer tests if individual units of source code are fit for use. A unit is the smallest testable part of an application"</cite>
+        </section>
+
+        <section>
+          <h3>Beneficios:</h3>
+          <ul>
+            <li>Facilitar el cambio y el refactoring</li>
+            <li class="fragment">Diseño simple y modular del código</li>
+            <li class="fragment">Sirve como documentación</li>
+            <li class="fragment">Ahorra mucho tiempo y costes con futuros bugs</li>
+          </ul>
+        </section>
+
+        <section>
+          <img alt="Test" src="img/test.png" style="margin-top:2.5em;" />
+        </section>
+
+        <section>
+          <img alt="Testing" src="img/testing.png" style="margin-top:2.5em;" />
+        </section>
+
+        <section>
+          <h3>Herramientas</h3>
+          <ul>
+            <li>Pruebas de código: <strong>jUnit</strong></li>
+            <li class="fragment">Pruebas de interfaz: <strong>Selenium</strong></li>
+            <li class="fragment">Pruebas de integración: <strong>SoapUI</strong> o <strong>Jersey Test Framework</strong></li>
+            <li class="fragment">Pruebas de estrés: <strong>jMeter</strong> con independencia del lenguaje en el que esté desarrollado el servicio</li>
+          </ul>
+        </section>
+
+        <section>
+          <img alt="Jersey Testing" src="img/jerseytesting.png" style="margin-top:2.5em;" />
+        </section>
+
+        <section>
+          <h3>Dependencias extra necesarias</h3>
+          <p>Añadir al pom.xml las siguientes dependencias:</p>
+          <pre><code class="xml">&lt;dependency>
+  &lt;groupId>com.sun.jersey.jersey-test-framework&lt;/groupId>
+  &lt;artifactId>jersey-test-framework-core&lt;/artifactId>
+  &lt;version>1.14&lt;/version>
+&lt;/dependency>
+
+&lt;dependency>
+  &lt;groupId>com.sun.jersey.jersey-test-framework&lt;/groupId>
+  &lt;artifactId>jersey-test-framework-grizzly&lt;/artifactId>
+  &lt;version>1.14&lt;/version>
+&lt;/dependency>
+</code></pre>
+        </section>
+
+        <section>
+          <h3>Definición de un test</h3>
+          <p>Código necesario para arrancar el contenedor Java:</p>
+          <pre><code class="java" style="font-size:75%;">public class UsersResourceTest extends JerseyTest {
+    private WebResource resource;
+
+    public UsersResourceTest() {
+        super(new WebAppDescriptor.Builder("com.decharlas.services")
+                .contextParam("webAppRootKey", "jersey-maven.root")
+                .servletClass(ServletContainer.class).build());
+        this.resource = resource();
+    }
+
+    @Override
+    protected TestContainerFactory getTestContainerFactory() {
+        return new GrizzlyWebTestContainerFactory();
+    }
+}</code></pre>
+        </section>
+
+        <section>
+          <h3>Definición de un test</h3>
+          <p>Definición de los tests:</p>
+          <pre><code class="java" style="font-size:75%;">public class UsersResourceTest extends JerseyTest {
+
+    // Métodos de definición de la slide anterior
+
+    @Test
+    public void deleteUser() throws Exception {
+        ClientResponse response = resource.path("users/1")
+                                          .accept("appliation/json")
+                                          .delete(ClientResponse.class);
+
+        Assert.assertEquals(Status.NO_CONTENT.getStatusCode(),
+                            response.getStatus());
+    }
+}</code></pre>
+        </section>
+
+        <section>
+        <img src="img/demo.png" style="margin-top: 2.5em;">
+        </section>
+
+        <section>
+        <img src="img/lovebooks.jpg" style="margin-top: 2.5em;">
+        </section>
+
+        <section>
+          <img alt="Clean code" src="img/cleancode.png" style="margin-top:2.5em;" />
+        </section>
+
+        <section>
+          <img alt="xUnit" src="img/xunit.png" style="margin-top:2.5em;" />
+          <img alt="jUnit" src="img/junit.jpg" style="margin-top:2.5em;" />
+        </section>
+
+        <section>
+          <img alt="Growing" src="img/growing.png" style="margin-top:2.5em;" />
+        </section>
+
+        <section>
+          <h1>El futuro de JAX-RS</h1>
+        </section>
+
+        <section>
+          <p>El futuro es ...</p>
+          <h1>JAX-RS 2.0</h1>
+          <img class="fragment" alt="JAX-RS 2.0" src="img/jaxrs2tech.png">
+        </section>
+
+        <section>
+          <h2>¿Preguntas?</h2>
+          <p><img alt="Preguntas" src="img/preguntas.png" /></p>
+        </section>
+      </div>
+    </div>
+
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.min.js"></script>
+
+    <script>
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+
+        theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: 'lib/js/highlight.js', async: true, callback: function() { window.hljs.initHighlightingOnLoad(); } },
+          { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'lib/js/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'lib/js/data-markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+        ]
+      });
+    </script>
+  </body>
+</html>

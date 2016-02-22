@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected ProductoBean doInBackground(Void... params) {
       try {
-        final String url = "http://192.168.1.36:8087/uss/egcc/producto/2";
+        final String url = "http://172.17.0.228:8081/spring-ws-rest-server/egcc/producto/1";
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
         ProductoBean productoBean  = restTemplate.getForObject(url, ProductoBean.class);

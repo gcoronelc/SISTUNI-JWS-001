@@ -1,0 +1,28 @@
+https://github.com/gcoronelc/SISTUNI_SPRING_001/blob/master/CLASE05/EurekaAppSpring/src/main/java/pe/egcc/eurekaapp/dao/impl/CrudClienteImpl.java
+
+Sentencias SQL:
+---------------
+
+select e.CHR_EMPLCODIGO, e.VCH_EMPLPATERNO, e.VCH_EMPLMATERNO, e.VCH_EMPLNOMBRE, e.VCH_EMPLCIUDAD, e.VCH_EMPLDIRECCION, e.VCH_EMPLUSUARIO, e.VCH_EMPLCLAVE, m.CHR_CUENCODIGO, m.INT_MOVINUMERO, m.DTT_MOVIFECHA, m.CHR_TIPOCODIGO, m.DEC_MOVIIMPORTE, m.CHR_CUENREFERENCIA
+from empleado e, movimiento m
+where e.CHR_EMPLCODIGO = m.CHR_EMPLCODIGO and e.CHR_EMPLCODIGO = '0001';
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+select e.CHR_EMPLCODIGO, e.VCH_EMPLPATERNO, e.VCH_EMPLMATERNO, e.VCH_EMPLNOMBRE, e.VCH_EMPLCIUDAD, e.VCH_EMPLDIRECCION, e.VCH_EMPLUSUARIO, e.VCH_EMPLCLAVE, m.CHR_CUENCODIGO, m.INT_MOVINUMERO, m.DTT_MOVIFECHA, m.CHR_TIPOCODIGO, m.DEC_MOVIIMPORTE, m.CHR_CUENREFERENCIA
+from empleado e, movimiento m
+where e.CHR_EMPLCODIGO = m.CHR_EMPLCODIGO and m.CHR_CUENCODIGO = '00200002';
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+insert into cliente (chr_cliecodigo, vch_cliepaterno, vch_cliematerno, vch_clienombre, chr_cliedni, vch_clieciudad, vch_cliedireccion, vch_clietelefono, vch_clieemail) values ('00021','b','c','d','e','f','g','h','i');
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+select * from cliente;
+
+----------------------
+
+delete from cliente where chr_cliecodigo='00023';
+
+-------------------------------------------------
